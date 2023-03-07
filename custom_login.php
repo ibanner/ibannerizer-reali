@@ -28,4 +28,4 @@ add_filter( 'login_headerurl', 'ibn_login_logo_url' );
 function ibn_login_logo_url_title() {
     return 'Itay Banner - The Contechnician';
 }
-add_filter( 'login_headertitle', 'ibn_login_logo_url_title' );
+add_filter( 'login_headertext', 'ibn_login_logo_url_title' );

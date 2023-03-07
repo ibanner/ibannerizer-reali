@@ -38,7 +38,7 @@ function alumnus_init() {
 			'hierarchical'          => false,
 			'show_ui'               => true,
 			'show_in_nav_menus'     => true,
-			'supports'              => [ 'title', 'editor', 'thumbnail' ],
+			'supports'              => [ 'title', 'thumbnail', 'author' ],
 			'has_archive'           => true,
 			'rewrite'               => true,
 			'query_var'             => true,

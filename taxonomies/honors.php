@@ -6,11 +6,11 @@
  */
 function honors_init() {
 	register_taxonomy( 'honors', [ 'alumnus' ], [
-		'hierarchical'          => false,
+		'hierarchical'          => true,
 		'public'                => true,
 		'show_in_nav_menus'     => true,
 		'show_ui'               => true,
-		'show_admin_column'     => false,
+		'show_admin_column'     => true,
 		'query_var'             => true,
 		'rewrite'               => true,
 		'capabilities'          => [
