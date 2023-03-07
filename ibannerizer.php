@@ -61,6 +61,28 @@ function reali_register_scripts() {
 
 add_action('init', 'reali_register_scripts');
 
+
+/**
+ * Register Claiming User Current Photo Dynamic Tag.
+ *
+ * Include dynamic tag file and register tag class.
+ *
+ * @since 1.0.0
+ * @param \Elementor\Core\DynamicTags\Manager $dynamic_tags_manager Elementor dynamic tags manager.
+ * @return void
+ */
+function register_claiming_user_photo_dynamic_tag( $dynamic_tags_manager ) {
+
+	require_once( IBANNERIZER__PLUGIN_DIR . 'dynamic-tags/alumni-claiming-user-photo-dynamic-tag.php' );
+
+	$dynamic_tags_manager->register( new Elementor_Dynamic_Tag_Claiming_User_Current_Photo() );
+
+}
+
+add_action( 'elementor/dynamic_tags/register', 'register_claiming_user_photo_dynamic_tag' );
+
+
+
 /**
  * Register Claiming User Data Dynamic Tag.
  *
