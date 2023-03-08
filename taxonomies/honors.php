@@ -5,7 +5,7 @@
  * for use with 'alumnus'.
  */
 function honors_init() {
-	register_taxonomy( 'honors', [ 'alumnus' ], [
+	register_taxonomy( 'honors', [ 'alumnus', 'award' ], [
 		'hierarchical'          => true,
 		'public'                => true,
 		'show_in_nav_menus'     => true,

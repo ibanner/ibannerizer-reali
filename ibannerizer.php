@@ -22,6 +22,7 @@ require_once( IBANNERIZER__PLUGIN_DIR . 'taxonomies/honors.php' );
 require_once( IBANNERIZER__PLUGIN_DIR . 'taxonomies/group.php' );
 
 require_once( IBANNERIZER__PLUGIN_DIR . 'post-types/alumnus.php' );
+require_once( IBANNERIZER__PLUGIN_DIR . 'post-types/award.php' );
 
 add_filter('acf/settings/save_json', 'ibn_json_save_point');
  
