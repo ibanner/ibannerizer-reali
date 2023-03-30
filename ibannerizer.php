@@ -170,3 +170,34 @@ function ibn_set_claiming_user_names ( $alumnus_id , $user_id , $current_f_name 
   }
   
 }
+
+add_filter( 'relevanssi_hits_filter', 'efw_search_result_test' );
+
+function efw_search_result_test( $hits ) {
+  
+    static $nested_list = array();
+    $classes_present = array();
+    $sorted_list = array();
+
+    if ( ! empty( $hits ) ) {
+      
+        foreach ( $hits[0] as $hit ) {
+          $class = wp_get_post_terms($hit->ID,'al-class')[0];
+          $sorting_string = $class->name . ' ' . $hit->post_title;
+          $classes_present[$class->term_id] = $class->name;
+
+          if ( ! in_array($class, $classes_present) ) {
+            $classes_present[$class->term_id] = $class->name;
+          }
+
+          $nested_list[$class->name][] = $hit->ID;
+
+          $sorted_list[$sorting_string] = $hit; // Not really sorted yet
+        }
+        ksort($nested_list);
+        ksort($sorted_list); // Now the list should be sorted
+        $hits[0] = $sorted_list;
+    }
+    $_SESSION['_nested_list'] = $nested_list;
+    return $hits;
+}
