@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name:     IBannerizer - Reali Alumni
- * Plugin URI:      https://ibanner.co.il
- * Description:     A simple plugin to help me manage my client sites.
+ * Plugin URI:      https://effective-web.co.il
+ * Description:     Utility plugin for Hebrew Reali School alumni website
  * Author:          Itay Banner
- * Author URI:      https://ibanner.co.il
+ * Author URI:      https://effective-web.co.il
  * Text Domain:     ibannerizer
  * Domain Path:     /languages
  * Version:         0.1.0
