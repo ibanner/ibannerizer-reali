@@ -38,7 +38,7 @@ function award_init() {
 			'hierarchical'          => false,
 			'show_ui'               => true,
 			'show_in_nav_menus'     => true,
-			'supports'              => [ 'title', 'thumbnail', ],
+			'supports'              => [ 'title', 'thumbnail', 'page-attributes' ],
 			'has_archive'           => true,
 			'rewrite'               => true,
 			'query_var'             => true,
