@@ -21,12 +21,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     public function get_group()
     {
-        return [ 'post' ];
+        return [ 'efw-utility' ];
     }
 
     public function get_title()
     {
-        return esc_html__( 'Claiming User Photo', 'ibn' );
+        return esc_html__( 'Claiming User Photo', 'ibannerizer' );
     }
 
     public function get_name()

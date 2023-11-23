@@ -15,6 +15,7 @@
 define( 'IBANNERIZER__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once( IBANNERIZER__PLUGIN_DIR . 'custom_login.php' );
+require_once( IBANNERIZER__PLUGIN_DIR . 'dynamic-tags/register-dynamic-tags.php' );
 require_once( IBANNERIZER__PLUGIN_DIR . 'modules/ga.php' );
 
 require_once( IBANNERIZER__PLUGIN_DIR . 'taxonomies/al-class.php' );
@@ -61,28 +62,6 @@ function reali_register_scripts() {
 }
 
 add_action('init', 'reali_register_scripts');
-
-
-/**
- * Register Custom Dynamic Tags.
- *
- * Include dynamic tag files and register tag classes.
- *
- * @since 1.0.0
- * @param \Elementor\Core\DynamicTags\Manager $dynamic_tags_manager Elementor dynamic tags manager.
- * @return void
- */
-function efw_register_dynamic_tags( $dynamic_tags_manager ) {
-
-  require_once( IBANNERIZER__PLUGIN_DIR . 'dynamic-tags/alumni-claiming-user-photo-dynamic-tag.php' );
-  require_once( IBANNERIZER__PLUGIN_DIR . 'dynamic-tags/alumni-claiming-user-dynamic-tag.php' );
-
-  $dynamic_tags_manager->register( new Elementor_Dynamic_Tag_Claiming_User_Current_Photo() );
-  $dynamic_tags_manager->register( new Elementor_Dynamic_Tag_Claiming_User_Data() );
-
-}
-
-add_action( 'elementor/dynamic_tags/register', 'efw_register_dynamic_tags' );
 
 /**
  * ibn_associate_claiming_user_to_alumnus

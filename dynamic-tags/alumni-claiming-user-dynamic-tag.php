@@ -36,7 +36,7 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 	 * @return string Dynamic tag title.
 	 */
 	public function get_title() {
-		return esc_html__( 'Claiming User Data', 'ibn' );
+		return esc_html__( 'Claiming User Data', 'ibannerizer' );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 	 * @return array Dynamic tag groups.
 	 */
 	public function get_group() {
-		return [ 'post' ];
+		return [ 'efw-utility' ];
 	}
 
 	/**
