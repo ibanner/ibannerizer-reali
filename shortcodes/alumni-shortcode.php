@@ -4,144 +4,181 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+// [alumni get="something"]
+
 add_shortcode( 'alumni', 'efw_shortcode_alumni' );
 
 function efw_shortcode_alumni( $atts ) {
 	$a = shortcode_atts( array(
 		'get' => '',
 	), $atts );
+
+    $type = get_post_type();
+
+    switch ($type) {
+        case 'award':
+            $aid = get_field( 'award_recipient' )[0];
+            break;
+        
+        case 'alumnus':
+            $aid = get_the_ID();
+            break;
+        
+        case 'elementor_library':
+            return '[' . $a['get'] . ']';
+            break;
+
+        default:
+            return esc_html__( 'Alumnus not found', 'efw-alumni' ) . ' (type: ' . get_post_type() . ')';
+    }
 	
-	$terms = get_the_terms( get_the_ID(), 'al-class');
-	if ($terms) {
-		$class_object = $terms[0];
+	$has_class = get_the_terms( $aid , 'al-class');
+	if ( $has_class ) {
+		$class_object = $has_class[0];
 		$class_id = $class_object->term_id;
 	}
+
+    $output = '';
 	
 	switch ($a['get']) {
+        
 		case "class_link":
-			$class_url = get_term_link( $class_object );
-    		return '<a class="class-link" href="' . esc_url( $class_url ) . '">' . 'מחזור ' . $class_object->name . '</a>';
+            if ( $has_class ) {
+                $class_url = get_term_link( $class_object );
+    		    $output .= '<a class="class-link" href="' . esc_url( $class_url ) . '"><strong>' . 'מחזור ' . $class_object->name . '</strong></a>';
+            }
     		break;
 			
   		case "grad_years":
-    		return get_field("year", "al-class_" . $class_id) . " (" . get_field("hebrew_year", "al-class_" . $class_id) . ")";
+            if ( $has_class ) {
+                $output .= get_field("year", "al-class_" . $class_id) . " (" . get_field( "hebrew_year" , "al-class_" . $class_id) . ")";
+            }
     		break;
 			
 		case "nofel_page":
-    		return "https://yizkor.reali.org.il/nofel.asp?id=" . get_field("nofel_id");
+    		$output .= "https://yizkor.reali.org.il/nofel.asp?id=" . get_field( "nofel_id" , $aid );
     		break;
 		
 		case "nofel_link":
-			$nofel_link = "לעמוד לזכר";
-			switch (get_field("gender")) {
+			$output = "לעמוד לזכר";
+			switch ( get_field( "gender" , $aid ) ) {
 				case 'female':
-					$nofel_link .= "ה ";
+					$output .= "ה ";
 					break;
 				case 'male':
-					$nofel_link .= "ו ";
+					$output .= "ו ";
 					break;
 				default:
-					$nofel_link .= "ו.ה ";
+					$output .= "ו.ה ";
 			}
-			$nofel_link .= "באתר חללי בית הספר";
-    		return $nofel_link;
+			$output .= "באתר חללי בית הספר";
     		break;
 			
 		case "post_title":
-			$post_title = get_the_title();
-			return $post_title;
+			$output = get_the_title( $aid );
     		break;
 		
+        case 'biography':
+            $output = get_field( 'biography' , $aid );
+            break;
+
 		case "full_name":
-			$full_name = get_field('f_name_heb') . ' ';
-			$full_name .= ( get_field('current_f_name') ?  '(' . get_field('current_f_name') . ') ' : '');
-			$full_name .= get_field('l_name_heb') . ' ';
-			$full_name .= ( get_field('current_l_name') ?  '(' . get_field('current_l_name') . ') ' : '');
-			$full_name .= ( get_field('nickname') ?  '<span class="nickname">(' . get_field('nickname') . ')</span>' : '');
-			$full_name .= ( 1 == get_field('is_fallen') ?  ' <span class="rip">ז"ל</span>' : '');
-    		return $full_name;
+			$output = get_field( 'f_name_heb' , $aid ) . ' ';
+			$output .= ( get_field( 'current_f_name' , $aid ) ?  '(' . get_field( 'current_f_name' , $aid ) . ') ' : '');
+			$output .= get_field( 'l_name_heb' , $aid ) . ' ';
+			$output .= ( get_field('current_l_name' , $aid ) ?  '(' . get_field( 'current_l_name' , $aid ) . ') ' : '');
+			$output .= ( get_field( 'nickname' , $aid ) ?  '<span class="nickname">(' . get_field( 'nickname' , $aid ) . ')</span>' : '');
+			$output .= ( 1 == get_field( 'is_fallen' , $aid ) ?  ' <span class="rip">ז"ל</span>' : '');
     		break;
-			
+		
+        case 'is_panmaz':
+            $output = get_field( 'is_panmaz' , $aid );
+            break;
+            
 		case "panmaz":
-			$panmaz = get_field("panmaz_class", "al-class_" . $class_id);
-			if (get_field("panmaz_name", "al-class_" . $class_id)) {
-				$panmaz .= " (" . get_field("panmaz_name", "al-class_" . $class_id) . ")";
-			}
-			return $panmaz;
+            if ( $has_class && get_field( 'is_panmaz' , $aid ) ) {
+                $output = get_field( "panmaz_class" , "al-class_" . $class_id);
+                if ( get_field( "panmaz_name" , "al-class_" . $class_id)) {
+                    $output .= " (" . get_field( "panmaz_name" , "al-class_" . $class_id) . ")";
+                }
+            }
 			break;
 			
 		case "panmaz_link":
-			$panmaz = get_field("panmaz_class", "al-class_" . $class_id);
-			$panmaz_link = 'https://bogrim-panmaz.co.il/class/' . urlencode(str_replace('"', '״', $panmaz)) . '/'; // string replacement needed for compatability with bogrim-panmaz.co.il links
-			return $panmaz_link;
+            if ( $has_class && get_field( 'is_panmaz' , $aid ) ) {
+                $panmaz = get_field( "panmaz_class" , "al-class_" . $class_id);
+                // string replacement needed for compatability with bogrim-panmaz.co.il links
+                $panmaz_url = 'https://bogrim-panmaz.co.il/class/' . urlencode(str_replace('"', '״', $panmaz)) . '/'; 
+                $output = '<a class="panmaz-link" href="' . esc_url( $panmaz_url ) . '" target="_blank"><strong>' . 'מחזור ' . $panmaz . '</strong></a>';
+            }
 			break;
 			
 		case "isr_prize_pre":
-			switch (get_field("gender")) {
+			switch ( get_field( 'gender' , $aid ) ) {
 				case 'female':
-					$isr_prize_pre = "כלת פרס ישראל";
+					$output = "כלת פרס ישראל";
 					break;
 				case 'male':
-					$isr_prize_pre = "חתן פרס ישראל";
+					$output = "חתן פרס ישראל";
 					break;
 				default:
-					$isr_prize_pre = "פרס ישראל";
+					$output = "פרס ישראל";
 			}
-			return $isr_prize_pre;
 			break;
 			
 		case "isr_prize_info":
-			$isr_prize_info = get_field("israel_prize_field") . ', '  . get_field("israel_prize_year");
-			if (get_field("more_info")) {
-				$isr_prize_info .= " - <a href='" . get_field("more_info") . "'>נימוקי ועדת הפרס</a>";
+			$output = get_field( "israel_prize_field" , $aid ) . ', '  . get_field( "israel_prize_year" , $aid );
+			if ( get_field( "more_info" , $aid )) {
+				$output .= " - <a href='" . get_field( "more_info" , $aid ) . "'>נימוקי ועדת הפרס</a>";
 			}
-			return $isr_prize_info;
 			break;
 			
 		case "isr_prize_full":
-			switch (get_field("gender")) {
+			switch ( get_field( "gender" , $aid )) {
 				case 'female':
-					$isr_prize = "כלת פרס ישראל ל";
+					$output = "כלת פרס ישראל ל";
 					break;
 				case 'male':
-					$isr_prize = "חתן פרס ישראל ל";
+					$output = "חתן פרס ישראל ל";
 					break;
 				default:
-					$isr_prize = "פרס ישראל ל";
+					$output = "פרס ישראל ל";
 			}
-			$isr_prize_full .= get_field("israel_prize_field") . ' לשנת '  . get_field("israel_prize_year");
-			
-			return $isr_prize;
+			$output .= get_field( "israel_prize_field" , $aid ) . ' לשנת '  . get_field( "israel_prize_year" , $aid );
 			break;
 			
 		case "teacher_label":
-			$teacher_label = "שימש";
-			switch (get_field("gender")) {
+			$output = "שימש";
+			switch ( get_field( "gender" , $aid )) {
 				case 'female':
-					$teacher_label .= "ה";
+					$output .= "ה";
 					break;
 				default:
-					$teacher_label .= ".ה";
+					$output .= ".ה";
 			}
-			$teacher_label .= " מורה בבית הספר הריאלי";
-    		return $teacher_label;
+			$output .= " מורה בבית הספר הריאלי";
     		break;
 					
 		case "alum_gender":
-			$alum_gender = "בוגר";
-			switch (get_field("gender")) {
+			$output = "בוגר";
+			switch ( get_field( "gender" , $aid )) {
 				case 'male':
 					break;
 				case 'female':
-					$alum_gender .= "ת";
+					$output .= "ת";
 					break;
 				default:
-					$alum_gender .= ".ת";
+					$output .= ".ת";
 			}
-    		return $alum_gender;
     		break;
+
+        case "debug":
+            return $aid; //RBF
+            break;
 			
 		default:
     		return get_field($a['get'], "al-class_" . $class_id);
 	}
+
+    return $output;
 }
