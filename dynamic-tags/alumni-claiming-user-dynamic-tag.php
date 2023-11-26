@@ -36,7 +36,7 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 	 * @return string Dynamic tag title.
 	 */
 	public function get_title() {
-		return esc_html__( 'Claiming User Data', 'ibannerizer' );
+		return esc_html__( 'Claiming User Data', 'efw-alumni' );
 	}
 
 	/**
@@ -81,24 +81,24 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 	 */
 	protected function register_controls() {
 		$data_labels = array(
-			'user_email' => esc_html__( 'Email', 'ibn' ),
-			'alum_id' => esc_html__( 'Claimed Alumnus ID', 'ibn' ),
-			'alum_name' => esc_html__( 'Claimed Alumnus Name', 'ibn' ),
-			'email_consent' => esc_html__( 'Email Consent', 'ibn' ),
-			'phone_num' => esc_html__( 'Phone Number', 'ibn' ),
-			'about_alumni' => esc_html__( 'User Bio', 'ibn' ),
-			'website_url' => esc_html__( 'Website URL', 'ibn' ),
-			'facebook_url' => esc_html__( 'Facebook URL', 'ibn' ),
-			'twitter_url' => esc_html__( 'Twitter URL', 'ibn' ),
-			'linkedin_url' => esc_html__( 'LinkedIn URL', 'ibn' ),
-			'instagram_url' => esc_html__( 'Instagram URL', 'ibn' ),
+			'user_email' => esc_html__( 'Email', 'efw-alumni' ),
+			'alum_id' => esc_html__( 'Claimed Alumnus ID', 'efw-alumni' ),
+			'alum_name' => esc_html__( 'Claimed Alumnus Name', 'efw-alumni' ),
+			'email_consent' => esc_html__( 'Email Consent', 'efw-alumni' ),
+			'phone_num' => esc_html__( 'Phone Number', 'efw-alumni' ),
+			'about_alumni' => esc_html__( 'User Bio', 'efw-alumni' ),
+			'website_url' => esc_html__( 'Website URL', 'efw-alumni' ),
+			'facebook_url' => esc_html__( 'Facebook URL', 'efw-alumni' ),
+			'twitter_url' => esc_html__( 'Twitter URL', 'efw-alumni' ),
+			'linkedin_url' => esc_html__( 'LinkedIn URL', 'efw-alumni' ),
+			'instagram_url' => esc_html__( 'Instagram URL', 'efw-alumni' ),
 		);
 
 		$this->add_control(
 			'claiming_user_data',
 			[
 				'type' => \Elementor\Controls_Manager::SELECT,
-				'label' => esc_html__( 'Claiming User Data', 'ibn' ),
+				'label' => esc_html__( 'Claiming User Data', 'efw-alumni' ),
 				'options' => $data_labels,
 			]
 		);
