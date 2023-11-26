@@ -94,7 +94,7 @@ function efw_shortcode_alumni( $atts ) {
         case 'is_panmaz':
             $output = get_field( 'is_panmaz' , $aid );
             break;
-            
+
 		case "panmaz":
             if ( $has_class && get_field( 'is_panmaz' , $aid ) ) {
                 $output = get_field( "panmaz_class" , "al-class_" . $class_id);
@@ -148,15 +148,15 @@ function efw_shortcode_alumni( $atts ) {
 			break;
 			
 		case "teacher_label":
-			$output = "שימש";
-			switch ( get_field( "gender" , $aid )) {
-				case 'female':
-					$output .= "ה";
-					break;
-				default:
-					$output .= ".ה";
-			}
-			$output .= " מורה בבית הספר הריאלי";
+			// $output = "שימש";
+			// switch ( get_field( "gender" , $aid )) {
+			// 	case 'female':
+			// 		$output .= "ה";
+			// 		break;
+			// 	default:
+			// 		$output .= ".ה";
+			// }
+			// $output .= " מורה בבית הספר הריאלי"; RBF
     		break;
 					
 		case "alum_gender":
