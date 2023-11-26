@@ -5,32 +5,32 @@
  * Description:     Utility plugin for Hebrew Reali School alumni website
  * Author:          Itay Banner
  * Author URI:      https://effective-web.co.il
- * Text Domain:     ibannerizer
+ * Text Domain:     efw-alumni
  * Domain Path:     /languages
  * Version:         0.1.1
  *
- * @package         Ibannerizer
+ * @package         efw-alumni
  */
 
-define( 'IBANNERIZER__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'EFW__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-require_once( IBANNERIZER__PLUGIN_DIR . 'custom_login.php' );
-require_once( IBANNERIZER__PLUGIN_DIR . 'dynamic-tags/register-dynamic-tags.php' );
-require_once( IBANNERIZER__PLUGIN_DIR . 'modules/ga.php' );
+require_once( EFW__PLUGIN_DIR . 'custom_login.php' );
+require_once( EFW__PLUGIN_DIR . 'dynamic-tags/register-dynamic-tags.php' );
+require_once( EFW__PLUGIN_DIR . 'modules/ga.php' );
 
-require_once( IBANNERIZER__PLUGIN_DIR . 'taxonomies/al-class.php' );
-require_once( IBANNERIZER__PLUGIN_DIR . 'taxonomies/honors.php' );
-require_once( IBANNERIZER__PLUGIN_DIR . 'taxonomies/group.php' );
+require_once( EFW__PLUGIN_DIR . 'taxonomies/al-class.php' );
+require_once( EFW__PLUGIN_DIR . 'taxonomies/honors.php' );
+require_once( EFW__PLUGIN_DIR . 'taxonomies/group.php' );
 
-require_once( IBANNERIZER__PLUGIN_DIR . 'post-types/alumnus.php' );
-require_once( IBANNERIZER__PLUGIN_DIR . 'post-types/award.php' );
+require_once( EFW__PLUGIN_DIR . 'post-types/alumnus.php' );
+require_once( EFW__PLUGIN_DIR . 'post-types/award.php' );
 
 add_filter('acf/settings/save_json', 'ibn_json_save_point');
  
 function ibn_json_save_point( $path ) {
     
     // update path
-    $path = IBANNERIZER__PLUGIN_DIR . '/acf-json';
+    $path = EFW__PLUGIN_DIR . '/acf-json';
         
     // return
     return $path;
