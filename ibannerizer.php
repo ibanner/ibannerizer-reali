@@ -25,6 +25,8 @@ require_once( EFW__PLUGIN_DIR . 'taxonomies/group.php' );
 require_once( EFW__PLUGIN_DIR . 'post-types/alumnus.php' );
 require_once( EFW__PLUGIN_DIR . 'post-types/award.php' );
 
+require_once( EFW__PLUGIN_DIR . 'shortcodes/alumni-shortcode.php' );
+
 add_filter('acf/settings/save_json', 'ibn_json_save_point');
  
 function ibn_json_save_point( $path ) {
