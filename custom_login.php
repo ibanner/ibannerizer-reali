@@ -1,31 +1,87 @@
 <?php 
 
-function ibn_login_style() { ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+function efw_login_style() { ?>
     <style type="text/css">
         body {
             background-color: #ffffff !important;
+            font-family: 'Alef', Arial, Sans-serif;
+        }
+
+        #login {
+            width: 100% !important;
+        }
+
+        #login form {
+            width: 320px;
+            margin: 20px auto;
+        }
+
+        #login p {
+            text-align: center;
         }
 
         #login h1 a, .login h1 a {
-            background-image: url(<?php echo plugin_dir_url( __FILE__ ).'img/ibanner_logo.png' ?>);
-        height:100px;
-        width:300px;
-        background-size: 300px 100px;
-        background-repeat: no-repeat;
-        padding-bottom: 10px;
+            background-image: url(<?php echo esc_url( wp_get_attachment_url( get_theme_mod( 'custom_logo' ) ) ) ?>);
+            height:100px;
+            width:auto;
+            background-size: auto 100px;
+            background-repeat: no-repeat;
+            padding-bottom: 10px;
         }
+
+        #efw-login-footer {
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            padding-bottom: 20px;
+            width: 100%;
+        }
+
+        #efw-login-title {
+            width: 100%;
+            background-color: #0B4596;
+            color: #fff;
+            padding: 20px;
+        }
+
+        #efw-login-title h2 {
+            text-align: center;
+        }
+
+
     </style>
 <?php }
 
-add_action( 'login_enqueue_scripts', 'ibn_login_style' );
+add_action( 'login_enqueue_scripts', 'efw_login_style' );
 
-function ibn_login_logo_url() {
-    $ibanner_url = "https://ibanner.co.il";
-    return $ibanner_url;
+function efw_login_logo_url() {
+    return home_url();
 }
-add_filter( 'login_headerurl', 'ibn_login_logo_url' );
- 
-function ibn_login_logo_url_title() {
-    return 'Itay Banner - The Contechnician';
+add_filter( 'login_headerurl', 'efw_login_logo_url' );
+
+function efw_login_message() {
+    echo '<div id="efw-login-title">';
+    echo '<h2>' . get_bloginfo('name') . '</h2>';
+    echo '</div>';
 }
-add_filter( 'login_headertext', 'ibn_login_logo_url_title' );
+add_filter( 'login_message', 'efw_login_message' );
+
+function efw_login_footer() {
+    $alum_url = 'https://alumni.reali.org.il/alumnus/14152/';
+    $class_url = 'https://alumni.reali.org.il/al-class/%d7%a2%d7%93/';
+    echo '<div id="efw-login-footer">';
+    echo '<h3><strong>איפיון ופיתוח:</strong> <a href="' . $alum_url . '" rel="noopener">איתי בנר</a> (מחזור <a href="' . $class_url . '"><strong>ע"ד</strong></a>) - <a href="https://effective-web.co.il" target="_blank" rel="noopener">Effective Web</a></h3>';
+    echo '</div>';
+}
+add_filter( 'login_footer', 'efw_login_footer' );
+
+add_filter( 'login_display_language_dropdown', '__return_false' );
+
+add_filter( 'logout_url', 'efw_logout_page', 10, 2 );
+function efw_logout_page( $logout_url, $redirect ) {
+    return home_url( '?redirect_to=' . $redirect );
+}
