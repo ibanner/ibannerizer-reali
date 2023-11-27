@@ -71,6 +71,68 @@ protected function register_controls() {
     );
 
     $this->end_controls_section();
+
+    $this->start_controls_section(
+        'section_class_titles',
+        [
+            'label' => esc_html__( 'Class Titles', 'efw-alumni' ),
+            'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+        ]
+    );
+
+    $this->add_group_control(
+        \Elementor\Group_Control_Typography::get_type(),
+        [
+            'name' => 'class_titles_typography',
+            'label' => esc_html__( 'Typography', 'efw-alumni' ),
+            'selector' => '{{WRAPPER}} h2',
+        ]
+    );
+
+    $this->add_control(
+        'class_titles_color',
+        [
+            'label' => esc_html__( 'Color', 'efw-alumni' ),
+            'type' => \Elementor\Controls_Manager::COLOR,
+            'default' => 'var( --e-global-color-primary )',
+            'selectors' => [
+                '{{WRAPPER}} h2' => 'color: {{VALUE}}',
+            ],
+        ]
+    );
+
+    $this->end_controls_section();
+
+    $this->start_controls_section(
+        'section_alumni_names',
+        [
+            'label' => esc_html__( 'Alumni Names', 'efw-alumni' ),
+            'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+        ]
+    );
+
+    $this->add_group_control(
+        \Elementor\Group_Control_Typography::get_type(),
+        [
+            'name' => 'alumni_names_typography',
+            'label' => esc_html__( 'Typography', 'efw-alumni' ),
+            'selector' => '{{WRAPPER}} li',
+        ]
+    );
+
+    $this->add_control(
+        'alumni_names_color',
+        [
+            'label' => esc_html__( 'Color', 'efw-alumni' ),
+            'type' => \Elementor\Controls_Manager::COLOR,
+            'default' => 'var( --e-global-color-primary )',
+            'selectors' => [
+                '{{WRAPPER}} li' => 'color: {{VALUE}}',
+            ],
+        ]
+    );
+
+    $this->end_controls_section();
 }
 
 protected function render() {
