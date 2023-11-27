@@ -80,8 +80,3 @@ function efw_login_footer() {
 add_filter( 'login_footer', 'efw_login_footer' );
 
 add_filter( 'login_display_language_dropdown', '__return_false' );
-
-add_filter( 'logout_url', 'efw_logout_page', 10, 2 );
-function efw_logout_page( $logout_url, $redirect ) {
-    return home_url( '?redirect_to=' . $redirect );
-}
