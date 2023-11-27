@@ -14,9 +14,10 @@
 
 define( 'EFW__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-require_once( EFW__PLUGIN_DIR . 'custom_login.php' );
 require_once( EFW__PLUGIN_DIR . 'dynamic-tags/register-dynamic-tags.php' );
 require_once( EFW__PLUGIN_DIR . 'widgets/register-widgets.php' );
+
+require_once( EFW__PLUGIN_DIR . 'modules/custom_login.php' );
 require_once( EFW__PLUGIN_DIR . 'modules/ga.php' );
 
 require_once( EFW__PLUGIN_DIR . 'taxonomies/al-class.php' );
