@@ -57,11 +57,6 @@ function reali_register_scripts() {
       '1.0.0',
       true
     );
-	
-//     wp_enqueue_script(
-//         'he-code',
-//         'https://unpkg.com/he-date@1.2.2/HeDate.js'
-//     );
 
 }
 
