@@ -117,7 +117,7 @@ class Elementor_Dynamic_Tag_Alumni_Name_Format extends Elementor\Core\DynamicTag
 					'yes' => esc_html__( 'Include', 'efw-alumni' ),
 					'no' => esc_html__( 'Don\'t include', 'efw-alumni' ),
 				],
-				'default' => 'yes',
+				'default' => 'no',
 			]
 		);
 	}
