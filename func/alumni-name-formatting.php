@@ -46,7 +46,7 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
         $output .= $parts['l_name_heb'] . ' ';
         $output .= (  'full_current' == $format && $parts['current_l_name'] ?  '(' . $parts['current_l_name'] . ') ' : '');
         $output .= ( 1 == $nickname && $parts['nickname'] ?  '<span class="nickname">(' . $parts['nickname'] . ') </span>' : '');
-        $output .= ( 1 == $rip && $is_fallen ?  '<span class="rip">' . esc_html__( 'RIP', 'efw-alumni' ) . '/span>' : '');
+        $output .= ( 1 == $rip && $is_fallen ?  '<span class="rip">' . esc_html__( 'RIP', 'efw-alumni' ) . '</span>' : '');
         
     }
     

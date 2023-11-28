@@ -132,24 +132,11 @@ class Elementor_Dynamic_Tag_Alumni_Name_Format extends Elementor\Core\DynamicTag
 	 * @return void
 	 */
 	public function render() {
-		$alumni_name_format_selected = $this->get_settings( 'alumni_name_format' );
-        $include_nickname = $this->get_settings( 'alumni_nickname' );
-        $include_rip = $this->get_settings( 'alumni_rip' );
+		$format = $this->get_settings( 'alumni_name_format' );
+        $nickname = ( 'yes' == $this->get_settings( 'alumni_nickname' ) ? 1 : 0 );
+        $rip = ( 'yes' == $this->get_settings( 'alumni_rip' ) ? 1 : 0 );
 
-		if ( ! $alumni_name_format_selected ) {
-			echo get_the_title();
-		} else {
-
-            $output = get_field('f_name_heb') . ' ';
-			$output .= ( get_field('current_f_name') ?  '(' . get_field('current_f_name') . ') ' : '');
-			$output .= get_field('l_name_heb') . ' ';
-			$output .= ( get_field('current_l_name') ?  '(' . get_field('current_l_name') . ') ' : '');
-			$output .= ( 'yes' == $include_nickname && get_field('nickname') ?  '<span class="nickname">(' . get_field('nickname') . ')</span>' : '');
-			$output .= ( 'yes' == $include_rip && 1 == get_field('is_fallen') ?  ' <span class="rip">ז"ל</span>' : '');
-            
-            echo $output;
-        }
-
+		echo efw_get_alumnus_name( get_the_ID() , $format , $nickname , $rip );
 	}
 
 }

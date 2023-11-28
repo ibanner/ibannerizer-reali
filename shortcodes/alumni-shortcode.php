@@ -83,12 +83,13 @@ function efw_shortcode_alumni( $atts ) {
             break;
 
 		case "full_name":
-			$output = get_field( 'f_name_heb' , $aid ) . ' ';
-			$output .= ( get_field( 'current_f_name' , $aid ) ?  '(' . get_field( 'current_f_name' , $aid ) . ') ' : '');
-			$output .= get_field( 'l_name_heb' , $aid ) . ' ';
-			$output .= ( get_field('current_l_name' , $aid ) ?  '(' . get_field( 'current_l_name' , $aid ) . ') ' : '');
-			$output .= ( get_field( 'nickname' , $aid ) ?  '<span class="nickname">(' . get_field( 'nickname' , $aid ) . ')</span>' : '');
-			$output .= ( 1 == get_field( 'is_fallen' , $aid ) ?  ' <span class="rip">ז"ל</span>' : '');
+			$output = efw_get_alumnus_name( get_the_ID() , 'full_current' , 1 , 1 );
+			// $output = get_field( 'f_name_heb' , $aid ) . ' ';
+			// $output .= ( get_field( 'current_f_name' , $aid ) ?  '(' . get_field( 'current_f_name' , $aid ) . ') ' : '');
+			// $output .= get_field( 'l_name_heb' , $aid ) . ' ';
+			// $output .= ( get_field('current_l_name' , $aid ) ?  '(' . get_field( 'current_l_name' , $aid ) . ') ' : '');
+			// $output .= ( get_field( 'nickname' , $aid ) ?  '<span class="nickname">(' . get_field( 'nickname' , $aid ) . ')</span>' : '');
+			// $output .= ( 1 == get_field( 'is_fallen' , $aid ) ?  ' <span class="rip">ז"ל</span>' : ''); RBF
     		break;
 		
         case 'is_panmaz':
