@@ -41,6 +41,8 @@ function efw_load_textdomain() {
 }
 add_action( 'plugins_loaded', 'efw_load_textdomain' );
  
+
+
 /**
  * Register scripts and styles
  */
@@ -65,6 +67,8 @@ wp_register_script(
 }
 
 add_action('init', 'reali_register_scripts');
+
+
 
 /**
  * Setup ACF save point
