@@ -22,9 +22,7 @@ require_once( EFW__PLUGIN_DIR . 'func/alumni-name-formatting.php' );
 require_once( EFW__PLUGIN_DIR . 'modules/custom-login.php' );
 require_once( EFW__PLUGIN_DIR . 'modules/ga.php' );
 
-if (is_plugin_active('relevanssi-premium')) {
-  require_once( EFW__PLUGIN_DIR . 'modules/alumni-search.php' );
-}
+
 
 require_once( EFW__PLUGIN_DIR . 'taxonomies/al-class.php' );
 require_once( EFW__PLUGIN_DIR . 'taxonomies/honors.php' );
@@ -34,6 +32,19 @@ require_once( EFW__PLUGIN_DIR . 'post-types/alumnus.php' );
 require_once( EFW__PLUGIN_DIR . 'post-types/award.php' );
 
 require_once( EFW__PLUGIN_DIR . 'shortcodes/alumni-shortcode.php' );
+
+/**
+ * Plugin related files
+ */
+
+function efw_load_plugin_related_files() {
+  if (is_plugin_active('relevanssi-premium/relevanssi.php')) {
+    require_once( EFW__PLUGIN_DIR . 'modules/alumni-search.php' );
+  }
+}
+add_action( 'init', 'efw_load_plugin_related_files' );
+
+
 
 /**
  * Language files
