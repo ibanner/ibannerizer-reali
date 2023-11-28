@@ -110,7 +110,7 @@ add_shortcode( 'rlv_didyoumean', function() {
   if ( function_exists( 'relevanssi_didyoumean' ) ) {
     $didyoumean = relevanssi_didyoumean(
       get_search_query( false ),
-      '<p>' . __esc_html( 'Did you mean:', 'efw-alumni' ),
+      '<p>' . esc_html__( 'Did you mean:', 'efw-alumni' ),
       '</p>',
       5,
       false
