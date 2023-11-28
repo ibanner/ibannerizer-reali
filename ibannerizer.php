@@ -19,7 +19,7 @@ require_once( EFW__PLUGIN_DIR . 'widgets/register-widgets.php' );
 
 require_once( EFW__PLUGIN_DIR . 'func/alumni-name-formatting.php' );
 
-require_once( EFW__PLUGIN_DIR . 'modules/custom_login.php' );
+require_once( EFW__PLUGIN_DIR . 'modules/custom-login.php' );
 require_once( EFW__PLUGIN_DIR . 'modules/ga.php' );
 
 if (is_plugin_active('relevanssi-premium')) {
