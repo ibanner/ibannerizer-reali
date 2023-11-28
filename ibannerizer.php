@@ -17,8 +17,11 @@ define( 'EFW__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 require_once( EFW__PLUGIN_DIR . 'dynamic-tags/register-dynamic-tags.php' );
 require_once( EFW__PLUGIN_DIR . 'widgets/register-widgets.php' );
 
+require_once( EFW__PLUGIN_DIR . 'func/alumni-name-formatting.php' );
+
 require_once( EFW__PLUGIN_DIR . 'modules/custom_login.php' );
 require_once( EFW__PLUGIN_DIR . 'modules/ga.php' );
+
 
 require_once( EFW__PLUGIN_DIR . 'taxonomies/al-class.php' );
 require_once( EFW__PLUGIN_DIR . 'taxonomies/honors.php' );
@@ -28,20 +31,12 @@ require_once( EFW__PLUGIN_DIR . 'post-types/alumnus.php' );
 require_once( EFW__PLUGIN_DIR . 'post-types/award.php' );
 
 require_once( EFW__PLUGIN_DIR . 'shortcodes/alumni-shortcode.php' );
-
-add_filter('acf/settings/save_json', 'ibn_json_save_point');
  
-function ibn_json_save_point( $path ) {
-    
-    // update path
-    $path = EFW__PLUGIN_DIR . '/acf-json';
-        
-    // return
-    return $path;
-    
-}
+/**
+ * Register scripts and styles
+ */
 
-function reali_register_scripts() {
+ function reali_register_scripts() {
 	wp_register_script(
       'gematriya',
       plugin_dir_url( __FILE__ ) . "/lib/gematriya.js",
@@ -61,6 +56,22 @@ function reali_register_scripts() {
 }
 
 add_action('init', 'reali_register_scripts');
+
+/**
+ * Setup ACF save point
+ *
+ * @param string $path
+ * 
+ * @return string
+ */
+
+function ibn_json_save_point( $path ) {
+  $path = EFW__PLUGIN_DIR . '/acf-json';
+  return $path;
+}
+
+add_filter('acf/settings/save_json', 'ibn_json_save_point');
+
 
 /**
  * ibn_associate_claiming_user_to_alumnus

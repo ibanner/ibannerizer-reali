@@ -136,6 +136,8 @@ protected function register_controls() {
 }
 
 protected function render() {
+
+    global $post;
     
     $results = $_SESSION['_nested_list'];
 
@@ -205,13 +207,12 @@ protected function render() {
                         );
 
                         ?>
-                            <li <?php echo $this->get_render_attribute_string( 'alumnus' ); ?>><a href="<?php echo get_permalink(); ?>"><?php echo get_the_title(); ?></a></li>
+                            <li <?php echo $this->get_render_attribute_string( 'alumnus' ); ?>><a href="<?php echo get_permalink(); ?>"><?php echo efw_get_alumnus_name( get_the_ID() ); ?></a></li>
                         <?php
                     }
                 }
 
                 ?>
-                </ul>
             </div> <!-- End .class-wrapper -->
             <?php
         wp_reset_postdata();
