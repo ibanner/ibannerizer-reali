@@ -67,6 +67,7 @@ protected function register_controls() {
             'type' => \Elementor\Controls_Manager::TEXT,
             'label' => esc_html__( '"No Results" text', 'efw-alumni' ),
             'placeholder' => esc_html__( 'No people found with the name:', 'efw-alumni' ),
+            'default' => esc_html__( 'No people found with the name:', 'efw-alumni' ),
         ]
     );
 
