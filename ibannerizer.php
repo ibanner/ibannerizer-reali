@@ -31,27 +31,36 @@ require_once( EFW__PLUGIN_DIR . 'post-types/alumnus.php' );
 require_once( EFW__PLUGIN_DIR . 'post-types/award.php' );
 
 require_once( EFW__PLUGIN_DIR . 'shortcodes/alumni-shortcode.php' );
+
+/**
+ * Language files
+ */
+
+function efw_load_textdomain() {
+  load_plugin_textdomain( 'efw-alumni', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
+add_action( 'plugins_loaded', 'efw_load_textdomain' );
  
 /**
  * Register scripts and styles
  */
 
- function reali_register_scripts() {
-	wp_register_script(
-      'gematriya',
-      plugin_dir_url( __FILE__ ) . "/lib/gematriya.js",
-      ['jquery'],
-      '2.0.0',
-      true
-    );
-	
-	wp_register_script(
-      'reali-js',
-      plugin_dir_url( __FILE__ ) . "/js/script.js",
-      ['jquery', 'gematriya'],
-      '1.0.0',
-      true
-    );
+function reali_register_scripts() {
+wp_register_script(
+    'gematriya',
+    plugin_dir_url( __FILE__ ) . "/lib/gematriya.js",
+    ['jquery'],
+    '2.0.0',
+    true
+  );
+
+wp_register_script(
+    'reali-js',
+    plugin_dir_url( __FILE__ ) . "/js/script.js",
+    ['jquery', 'gematriya'],
+    '1.0.0',
+    true
+  );
 
 }
 

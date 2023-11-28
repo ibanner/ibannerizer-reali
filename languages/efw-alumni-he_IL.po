@@ -1,0 +1,206 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Reali Alumni Website\n"
+"POT-Creation-Date: 2023-11-28 11:47+0200\n"
+"PO-Revision-Date: 2023-11-28 11:56+0200\n"
+"Last-Translator: Itay Banner <itay@ibanner.co.il>\n"
+"Language-Team: Effective Web\n"
+"Language: he_IL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
+"2 : 3);\n"
+"X-Generator: Poedit 3.4.1\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: esc_html__\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: modules\n"
+"X-Poedit-SearchPath-2: post-types\n"
+"X-Poedit-SearchPath-3: shortcodes\n"
+"X-Poedit-SearchPath-4: taxonomies\n"
+"X-Poedit-SearchPath-5: widgets\n"
+"X-Poedit-SearchPath-6: ibannerizer.php\n"
+"X-Poedit-SearchPath-7: dynamic-tags\n"
+"X-Poedit-SearchPath-8: func\n"
+"X-Poedit-SearchPathExcluded-0: .git\n"
+"X-Poedit-SearchPathExcluded-1: .vscode\n"
+"X-Poedit-SearchPathExcluded-2: js\n"
+"X-Poedit-SearchPathExcluded-3: lib\n"
+"X-Poedit-SearchPathExcluded-4: img\n"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:39
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:101
+msgid "Claiming User Data"
+msgstr "נתוני בוגר/ת משויך/ת"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:84
+msgid "Email"
+msgstr "דוא\"ל"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:85
+msgid "Claimed Alumnus ID"
+msgstr "מזהה בוגר/ת משויך/ת"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:86
+msgid "Claimed Alumnus Name"
+msgstr "שם בוגר/ת משויך/ת"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:87
+msgid "Email Consent"
+msgstr "הסכמה לדיוור"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:88
+msgid "Phone Number"
+msgstr "מספר טלפון"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:89
+msgid "User Bio"
+msgstr "ביוגרפיה של המשתמש"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:90
+msgid "Website URL"
+msgstr "קישור לאתר"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:91
+msgid "Facebook URL"
+msgstr "קישור פייסבוק"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:92
+msgid "Twitter URL"
+msgstr "קישור טוויטר"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:93
+msgid "LinkedIn URL"
+msgstr "קישור לינקדאין"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:94
+msgid "Instagram URL"
+msgstr "קישור אינסטגרם"
+
+#: dynamic-tags/alumni-claiming-user-photo-dynamic-tag.php:29
+msgid "Claiming User Photo"
+msgstr "תמונת בוגר/ת משויך/ת"
+
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:39
+msgid "Alumni Name Format"
+msgstr "פורמט שמות"
+
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:82
+msgid "Original full name"
+msgstr "שם מלא מקורי"
+
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:84
+msgid "Current full name"
+msgstr "שם מלא כיום"
+
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:92
+msgid "Format"
+msgstr "פורמט"
+
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:102
+msgid "Nickname?"
+msgstr "כינוי?"
+
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:104
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:117
+msgid "Include"
+msgstr "לכלול"
+
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:105
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:118
+msgid "Don't include"
+msgstr "לא לכלול"
+
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:115
+#: func/alumni-name-formatting.php:49
+msgid "RIP"
+msgstr "ז\"ל"
+
+#: dynamic-tags/efw-loginout-url-dynamic-tag.php:14
+msgid "Log-in/Log-out URL"
+msgstr "קישור כניסה/יציאה"
+
+#: dynamic-tags/efw-loginout-url-dynamic-tag.php:30
+msgid "Redirect"
+msgstr "הפנייה"
+
+#: dynamic-tags/efw-loginout-url-dynamic-tag.php:32
+msgid "Homepage"
+msgstr "עמוד הבית"
+
+#: dynamic-tags/efw-loginout-url-dynamic-tag.php:33
+msgid "Current page"
+msgstr "דף נוכחי"
+
+#: dynamic-tags/register-dynamic-tags.php:19
+msgid "EFW Utility Tags"
+msgstr "תגיות EFW"
+
+#: shortcodes/alumni-shortcode.php:32
+msgid "Alumnus not found"
+msgstr "בוגר/ת לא נמצא/ה"
+
+#: widgets/alumni-search-results.php:14
+msgid "Alumni Search Results"
+msgstr "תוצאות חיפוש בוגרים/ות"
+
+#: widgets/alumni-search-results.php:37
+msgid "Content"
+msgstr "תוכן"
+
+#: widgets/alumni-search-results.php:45
+msgid "Show Rip"
+msgstr "להציג ז\"ל"
+
+#: widgets/alumni-search-results.php:47
+msgid "Show"
+msgstr "להציג"
+
+#: widgets/alumni-search-results.php:48
+msgid "Hide"
+msgstr "להסתיר"
+
+#: widgets/alumni-search-results.php:58
+msgid "Non students title"
+msgstr "כותרת ללא תלמידים"
+
+#: widgets/alumni-search-results.php:59 widgets/alumni-search-results.php:60
+msgid "School Community"
+msgstr "קהילת בית הספר"
+
+#: widgets/alumni-search-results.php:68
+msgid "\"No Results\" text"
+msgstr "כיתוב כשאין תוצאות"
+
+#: widgets/alumni-search-results.php:69
+msgid "No people found with the name:"
+msgstr "לא נמצאו בוגרים/ות בשם:"
+
+#: widgets/alumni-search-results.php:78
+msgid "Class Titles"
+msgstr "כותרת מחזור"
+
+#: widgets/alumni-search-results.php:87 widgets/alumni-search-results.php:118
+msgid "Typography"
+msgstr "טיפוגרפיה"
+
+#: widgets/alumni-search-results.php:95 widgets/alumni-search-results.php:126
+msgid "Color"
+msgstr "צבע"
+
+#: widgets/alumni-search-results.php:109
+msgid "Alumni Names"
+msgstr "שמות בוגרים/ות"
+
+#: widgets/alumni-search-results.php:165
+msgid "Perhaps try other names?"
+msgstr "אולי כדאי לחפש שמות אחרים?"
+
+#: widgets/alumni-search-results.php:175
+msgid "Class of"
+msgstr "מחזור"
+
+#: widgets/register-widgets.php:12
+msgid "Custom Widgets by Effective Web"
+msgstr "ווידג'טים מיוחדים - Effective Web"
