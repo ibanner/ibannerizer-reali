@@ -203,7 +203,7 @@ protected function render() {
             $this->add_render_attribute(
                 'alumnus',
                 [
-                    'class' => 'alumni-single-result' . $class_attr,
+                    'class' => 'alumni-single-result' . ' ' .  $class_attr,
                     'aria-label' => $name,
                 ]
             );
