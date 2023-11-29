@@ -23,15 +23,11 @@ function efw_prepare_search_results( $hits ) {
     if ( ! empty( $hits ) ) {
       
         foreach ( $hits[0] as $hit ) {
-          $class = wp_get_post_terms($hit->ID,'al-class')[0];
-          $sorting_string = $class->name . ' ' . $hit->post_title;
-          $classes_present[$class->term_id] = $class->name;
-
-          if ( ! in_array($class, $classes_present) ) {
-            $classes_present[$class->term_id] = $class->name;
-          }
-
-          $nested_list[$class->name][] = $hit->ID;
+          
+          $class_name = (wp_get_post_terms($hit->ID,'al-class')? wp_get_post_terms($hit->ID,'al-class')[0]->name:'תתת');
+          
+          $sorting_string = $class_name . ' ' . $hit->post_title;
+          $nested_list[$class_name][] = $hit->ID;
 
           $sorted_list[$sorting_string] = $hit; // Not really sorted yet
         }
@@ -40,6 +36,7 @@ function efw_prepare_search_results( $hits ) {
         $hits[0] = $sorted_list;
     }
     $_SESSION['_nested_list'] = $nested_list;
+    $_SESSION['_sorted_list'] = $sorted_list;
     return $hits;
 }
 
@@ -91,7 +88,7 @@ function efw_redirect_single_result() {
 }
 
 // Comment this to deactivate the redirect:
-add_action('template_redirect', 'efw_redirect_single_result');
+// add_action('template_redirect', 'efw_redirect_single_result');
 
 
 
@@ -110,8 +107,8 @@ add_shortcode( 'rlv_didyoumean', function() {
   if ( function_exists( 'relevanssi_didyoumean' ) ) {
     $didyoumean = relevanssi_didyoumean(
       get_search_query( false ),
-      '<p>' . esc_html__( 'Did you mean:', 'efw-alumni' ),
-      '</p>',
+      '<div id="rlv-didyoumean"><p>' . esc_html__( 'Did you mean:', 'efw-alumni' ) . ' ',
+      '?</p></div',
       5,
       false
     );

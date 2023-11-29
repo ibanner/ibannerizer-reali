@@ -36,7 +36,7 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
         $parts[$slug] = get_field( $slug , $aid );
     }
 
-    $is_fallen = ( 1 == get_field('is_fallen') ? TRUE : FALSE );
+    $is_fallen = ( 1 == get_field('is_fallen' , $aid) ? TRUE : FALSE );
 
     if ( $parts ) {
 

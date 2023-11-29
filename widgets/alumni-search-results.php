@@ -40,14 +40,14 @@ protected function register_controls() {
     );
 
     $this->add_control(
-        'show_rip',
+        'show-rip',
         [
             'label' => esc_html__( 'Show Rip', 'efw-alumni' ),
             'type' => \Elementor\Controls_Manager::SWITCHER,
             'label_on' => esc_html__( 'Show', 'efw-alumni' ),
             'label_off' => esc_html__( 'Hide', 'efw-alumni' ),
-            'return_value' => 'yes',
-            'default' => 'yes',
+            'return_value' => '1',
+            'default' => '1',
         ]
     );
 
@@ -66,8 +66,8 @@ protected function register_controls() {
         [
             'type' => \Elementor\Controls_Manager::TEXT,
             'label' => esc_html__( '"No Results" text', 'efw-alumni' ),
-            'placeholder' => esc_html__( 'No people found with the name:', 'efw-alumni' ),
-            'default' => esc_html__( 'No people found with the name:', 'efw-alumni' ),
+            'placeholder' => esc_html__( 'No people found with that name.', 'efw-alumni' ),
+            'default' => esc_html__( 'No people found with that name.', 'efw-alumni' ),
         ]
     );
 
@@ -134,6 +134,37 @@ protected function register_controls() {
     );
 
     $this->end_controls_section();
+
+    $this->start_controls_section(
+        'section_rip',
+        [
+            'label' => esc_html__( 'RIP Suffix', 'efw-alumni' ),
+            'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+        ]
+    );
+
+    $this->add_group_control(
+        \Elementor\Group_Control_Typography::get_type(),
+        [
+            'name' => 'rip_typography',
+            'label' => esc_html__( 'Typography', 'efw-alumni' ),
+            'selector' => '{{WRAPPER}} li .rip',
+        ]
+    );
+
+    $this->add_control(
+        'rip_color',
+        [
+            'label' => esc_html__( 'Color', 'efw-alumni' ),
+            'type' => \Elementor\Controls_Manager::COLOR,
+            'default' => 'var( --e-global-color-primary )',
+            'selectors' => [
+                '{{WRAPPER}} li .rip' => 'color: {{VALUE}}',
+            ],
+        ]
+    );
+
+    $this->end_controls_section();
 }
 
 protected function render() {
@@ -141,6 +172,7 @@ protected function render() {
     global $post;
     
     $results = $_SESSION['_nested_list'];
+    $sorted_list = $_SESSION['_sorted_list'];
 
     $settings = $this->get_settings_for_display();
 
@@ -152,83 +184,69 @@ protected function render() {
         ]
     );
 
-    
-
-    function efw_is_fallen( $classes ) {
-        return ( in_array( 'group-fallen' , $classes) ? TRUE : FALSE );
-    }
-
-    if ( ! $results ) {
+    if ( ! $sorted_list ) {
         ?>
         <div class="no-results">
             <h2><?php echo $settings['no-results-message']; ?></h2>
-            <div>
-                <?php echo esc_html__( 'Perhaps try other names?', 'efw-alumni' ); ?>
-            </div>
+            <?php // if (current_user_can('manage_options')) {echo do_shortcode('[rlv_didyoumean]');} ?>
+            <?php echo do_shortcode('[rlv_didyoumean]'); ?>
         </div>
         <?php
     } else {
-        
-        foreach ($results as $class => $alumni) {
-            $class_title = $settings['school-community'];
+        $count = count($sorted_list);
+        $i = 1;
 
-            if ($class) {
-                $class_title = esc_html__( 'Class of', 'efw-alumni' ) . ' ' . $class;
-            }
+        foreach ( $sorted_list as $alum ) {
+            $grad_class = wp_get_post_terms($alum->ID,'al-class');
+            $class_attr = implode(' ' , get_post_class( '', $alum->ID ));
+            $name = efw_get_alumnus_name( $alum->ID , 'full_current' , 0 , $settings['show-rip']);
+            $this->add_render_attribute(
+                'alumnus',
+                [
+                    'class' => 'alumni-single-result' . $class_attr,
+                    'aria-label' => $name,
+                ]
+            );
 
             ?>
-            <div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
+            <?php if ( (isset($prev) && $grad_class != $prev ) || !isset($prev) ) { 
+                $class_title = ( $grad_class ? esc_html__( 'Class of', 'efw-alumni' ) . ' ' . $grad_class[0]->name : $class_title = $settings['school-community'] );
+                echo ( 1 != $count? '</ul>' : '' );
+                ?>
                 <h2><?php echo $class_title; ?></h2>
                 <ul>
-                
-                <?php 
+            <?php } ?>
 
-                $args = array( 
-                    'posts_per_page' => 99, 
-                    'post_type' => 'alumnus', 
-                    'post_status' => 'publish',
-                    'post__in' => $alumni,
-                );
+            <li <?php echo $this->get_render_attribute_string( 'alumnus' ); ?>><a href="<?php echo get_permalink($alum->ID); ?>"><?php echo $name; ?></a></li>
 
-                $alumni_query = new WP_Query( $args );
-
-                if( $alumni_query->have_posts() ){
-                    while( $alumni_query->have_posts() ){
-                    
-                        $alumni_query->the_post();
-
-                        $classes = get_post_class( '', $post->ID );
-
-                        $this->add_render_attribute(
-                            'alumnus',
-                            [
-                                'class' => [ 'alumni-single-result', esc_attr( implode( ' ', $classes ) ) ],
-                                'aria-label' => $this->get_title(),
-                            ]
-                        );
-
-                        ?>
-                            <li <?php echo $this->get_render_attribute_string( 'alumnus' ); ?>><a href="<?php echo get_permalink(); ?>"><?php echo efw_get_alumnus_name( get_the_ID() ); ?></a></li>
-                        <?php
-                    }
-                }
-
-                ?>
-            </div> <!-- End .class-wrapper -->
             <?php
-        wp_reset_postdata();
+            if ( $i == $count ) { 
+                echo '</ul>'; 
+            } else {
+                $prev = $grad_class;
+                $i++;
+            }
         }
+                
+        ?>
+        <pre><?php //print_r($sorted_list); //RBF ?></pre>
+        <?php
     }
 }
 
 protected function content_template() {
     ?>
-	<# if ( 'yes' === settings.show_title ) { #>
-		<h3>{{{ settings.title }}}</h3>
-        <div class="">
-            <h3>
-	<# } #>
-
+	<# 
+    view.addRenderAttribute( 'wrapper', 'id', 'alumni-results' );
+    #>
+    <h2>מחזור ע"א</h2>
+    <ul>
+        <li class="alumni-single-result"><a href="https://alumni.reali.org.il/alumnus/12929/">צור בנר</a></li>
+    </ul>
+    <h2>מחזור ע"ד</h2>
+    <ul>
+        <li class="alumni-single-result"><a href="https://alumni.reali.org.il/alumnus/14152/">איתי בנר</a></li>
+    </ul>
 	<?php
 }
 
