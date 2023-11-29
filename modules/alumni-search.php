@@ -56,13 +56,15 @@ add_filter( 'relevanssi_hits_filter', 'efw_prepare_search_results' );
  */
 
 function rlv_adjust_words( $replacements ) {
-    $replacements['וו'] = 'ו';
+  
+  $replacements['וו'] = 'ו';
 	$replacements['יי'] = 'י';
-    $replacements['סון'] = 'זון';
-	// $replacements['זון'] = 'סון';
+  $replacements['סון'] = 'זון';
+	$replacements['שטיין'] = 'שטין';
 	$replacements['ph'] = 'v';
 	$replacements['nn'] = 'n';
-    return $replacements;
+  
+  return $replacements;
 }
 
 add_filter( 'relevanssi_punctuation_filter', 'rlv_adjust_words' );
