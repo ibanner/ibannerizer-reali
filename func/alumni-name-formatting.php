@@ -17,6 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname = 0 , $rip = 0 ) {
 
+    $output = '';
+
     $aid = ( 'alumnus' == get_post_type() ? $post_id : 0 );
     $aid = ( 'award' == get_post_type() ? get_field( 'award_recipient' )[0] : $post_id );
 
@@ -31,13 +33,10 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
     $parts = [];
 
     foreach ( $fields as $slug ) {
-        $parts[$slug] = get_field($slug);
+        $parts[$slug] = get_field( $slug , $aid );
     }
 
     $is_fallen = ( 1 == get_field('is_fallen') ? TRUE : FALSE );
-    
-
-    $output = '';
 
     if ( $parts ) {
 
