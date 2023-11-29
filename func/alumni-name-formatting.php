@@ -19,8 +19,8 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
 
     $output = '';
 
-    $aid = ( 'alumnus' == get_post_type() ? $post_id : 0 );
-    $aid = ( 'award' == get_post_type() ? get_field( 'award_recipient' )[0] : $post_id );
+    $aid = ( 'alumnus' == get_post_type( $post_id ) ? $post_id : 0 );
+    $aid = ( 'award' == get_post_type( $post_id ) ? get_field( 'award_recipient' , $post_id )[0] : $post_id );
 
     $fields = [
         'f_name_heb',
