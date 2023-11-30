@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Reali Alumni Website\n"
-"POT-Creation-Date: 2023-11-29 11:57+0200\n"
-"PO-Revision-Date: 2023-11-29 14:59+0200\n"
+"POT-Creation-Date: 2023-11-30 12:10+0200\n"
+"PO-Revision-Date: 2023-11-30 12:11+0200\n"
 "Last-Translator: Itay Banner <itay@ibanner.co.il>\n"
 "Language-Team: Effective Web\n"
 "Language: he_IL\n"
@@ -13,16 +13,50 @@ msgstr ""
 "2 : 3);\n"
 "X-Generator: Poedit 3.4.1\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: esc_html__\n"
+"X-Poedit-KeywordsList: esc_html__;esc_html_x\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPath-1: dynamic-tags\n"
-"X-Poedit-SearchPath-2: post-types\n"
-"X-Poedit-SearchPath-3: taxonomies\n"
-"X-Poedit-SearchPath-4: shortcodes\n"
-"X-Poedit-SearchPath-5: modules\n"
-"X-Poedit-SearchPath-6: widgets\n"
 "X-Poedit-SearchPathExcluded-0: .gitignore\n"
 "X-Poedit-SearchPathExcluded-1: readme.txt\n"
+"X-Poedit-SearchPathExcluded-2: img\n"
+"X-Poedit-SearchPathExcluded-3: js\n"
+"X-Poedit-SearchPathExcluded-4: lib\n"
+"X-Poedit-SearchPathExcluded-5: languages\n"
+
+#: admin/alumni-admin-columns.php:21
+msgid "Grad Year"
+msgstr "שנת סיום"
+
+#: admin/alumni-admin-columns.php:22
+msgid "Hebrew Year"
+msgstr "שנה עברית"
+
+#: admin/alumni-admin-columns.php:23
+msgid "Panmaz Class"
+msgstr "מחזור פנמ\"צ"
+
+#: admin/alumni-admin-columns.php:53
+msgid "Order"
+msgstr "סדר"
+
+#: admin/alumni-admin-columns.php:54
+msgid "Award Recipient"
+msgstr "מקבל/ת הפרס"
+
+#: admin/alumni-admin-columns.php:55
+msgid "Featured Image"
+msgstr "תמונה"
+
+#: admin/alumni-admin-columns.php:56
+msgid "Award Year"
+msgstr "שנה"
+
+#: admin/alumni-admin-columns.php:57
+msgid "Award Link"
+msgstr "קישור מידע"
+
+#: admin/alumni-admin-columns.php:74
+msgid "Open"
+msgstr "פתיחה"
 
 #: dynamic-tags/alumni-claiming-user-dynamic-tag.php:39
 #: dynamic-tags/alumni-claiming-user-dynamic-tag.php:101
@@ -132,7 +166,7 @@ msgstr "דף נוכחי"
 msgid "EFW Utility Tags"
 msgstr "תגיות EFW"
 
-#: modules/alumni-search.php:110
+#: modules/alumni-search.php:112
 msgid "Did you mean:"
 msgstr "ייתכן שהתכוונת ל:"
 

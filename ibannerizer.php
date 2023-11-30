@@ -33,6 +33,9 @@ require_once( EFW__PLUGIN_DIR . 'post-types/award.php' );
 
 require_once( EFW__PLUGIN_DIR . 'shortcodes/alumni-shortcode.php' );
 
+require_once( EFW__PLUGIN_DIR . 'admin/alumni-admin-columns.php' );
+
+
 /**
  * Plugin related files
  */
