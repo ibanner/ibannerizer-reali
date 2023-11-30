@@ -50,10 +50,10 @@ add_action( 'manage_al-class_custom_column', 'efw_custom_al_class_columns', 10, 
  // Headers
  function efw_add_award_columns( $columns ) {
 	unset($columns['date']);
-	$columns['menu-order'] = esc_html_x( 'Order' , 'Award Ordering' , 'efw-alumni' );
+	$columns['menu_order'] = esc_html_x( 'Order' , 'Award Ordering' , 'efw-alumni' );
 	$columns['award-recipient'] = esc_html__( 'Award Recipient' , 'efw-alumni' );
 	$columns['thumbnail'] = esc_html__( 'Featured Image' , 'efw-alumni' );
-    $columns['year'] = esc_html__( 'Award Year' , 'efw-alumni' );
+    $columns['award_year'] = esc_html__( 'Award Year' , 'efw-alumni' );
     $columns['link'] = esc_html__( 'Award Link' , 'efw-alumni' );
     return $columns;
 } 
@@ -63,10 +63,10 @@ add_filter( 'manage_edit-award_columns', 'efw_add_award_columns' );
 // Content
 function efw_custom_award_column_values( $columns, $post_id ) {
     switch ( $columns ) {
-        case 'year' :
+        case 'award_year' :
             echo esc_html( get_field('award_year', $post_id) );
 			break;
-        case 'menu-order' :
+        case 'menu_order' :
             echo get_post_field('menu_order', $post_id);
 			break;
         case 'link' :
@@ -88,21 +88,27 @@ add_action( 'manage_award_posts_custom_column', 'efw_custom_award_column_values'
 
 // Sorting
 function efw_make_award_columns_sortable($sortable_columns) {
-    $sortable_columns['year'] = 'year';
-    $sortable_columns['menu-order'] = 'menu-order';
+    $sortable_columns['award_year'] = 'award_year';
+    $sortable_columns['menu_order'] = 'menu_order';
     return $sortable_columns;
 }
 add_filter('manage_edit-award_sortable_columns', 'efw_make_award_columns_sortable');
 
-// function efw_custom_column_orderby($query) {
-//     if (!is_admin() || !$query->is_main_query()) {
-//         return;
-//     }
-
-//     $orderby = $query->get('orderby');
-
-//     if ('menu_order' == $orderby) {
-//         $query->set('orderby', 'menu_order');
-//     }
-// }
-// add_action('pre_get_posts', 'efw_custom_column_orderby'); //RBF
+function efw_award_columns_orderby($query) {
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    } else if ( function_exists( 'get_current_screen' ) ) {
+        $screen = get_current_screen();
+        if('award' != $screen->post_type){ 
+            return;
+        } 
+        $orderby = $query->get('orderby');
+        switch ($orderby) {
+            case 'award_year':
+                $query->set('meta_key', 'award_year');
+                $query->set('orderby', 'meta_value');
+                break;
+        }
+    }
+}
+add_action('pre_get_posts', 'efw_award_columns_orderby');
