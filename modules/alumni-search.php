@@ -27,7 +27,7 @@ function efw_prepare_search_results( $hits ) {
           $class_id = wp_get_post_terms($hit->ID,'al-class')[0]->term_id;
           $class_year = (get_field('year' , 'al-class_' . $class_id) ?: 9999 );
           $sorting_string = $class_year . ' ' . $hit->post_title;
-          do_action( 'qm/debug', $sorting_string );
+          do_action( 'qm/debug', $sorting_string ); //RBF
 
           $sorted_list[$sorting_string] = $hit; // Not really sorted yet
         }
