@@ -159,21 +159,38 @@ function efw_shortcode_alumni( $atts ) {
 			// }
 			// $output .= " מורה בבית הספר הריאלי"; RBF
     		break;
-					
-		case "alum_gender":
-			$output = "בוגר";
-			switch ( get_field( "gender" , $aid )) {
-				case 'male':
-					break;
-				case 'female':
-					$output .= "ת";
-					break;
-				default:
-					$output .= ".ת";
+		
+		case "class_label":
+			$is_grad = has_term( 'graduates', 'group' , $aid );
+			$gender = get_field( "gender" , $aid );
+			if ( TRUE == has_term( 'graduates', 'group' , $aid ) ) {
+				switch ( $gender ) {
+					case 'male':
+						$output = esc_html_x( 'Graduated in' , 'Masculine' , 'efw-alumni' );
+						break;
+					case 'female':
+						$output = esc_html_x( 'Graduated in' , 'Feminine' , 'efw-alumni' );
+						break;
+					default:
+					$output = esc_html_x( 'Graduated in' , 'Gender Neutral' , 'efw-alumni' );
+				}
+			} elseif ( TRUE == has_term( 'students', 'group' , $aid ) ) {
+				switch ( $gender ) {
+					case 'male':
+						$output = esc_html_x( 'Studied with' , 'Masculine' , 'efw-alumni' );
+						break;
+					case 'female':
+						$output = esc_html_x( 'Studied with' , 'Feminine' , 'efw-alumni' );
+						break;
+					default:
+					$output = esc_html_x( 'Studied with' , 'Gender Neutral' , 'efw-alumni' );
+				}
 			}
-    		break;
-
-        case "debug":
+			
+			
+			break;
+		
+		case "debug":
             return $aid; //RBF
             break;
 			

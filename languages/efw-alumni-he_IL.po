@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Reali Alumni Website\n"
-"POT-Creation-Date: 2023-11-30 12:40+0200\n"
-"PO-Revision-Date: 2023-11-30 12:49+0200\n"
+"POT-Creation-Date: 2023-12-10 17:23+0200\n"
+"PO-Revision-Date: 2023-12-10 17:23+0200\n"
 "Last-Translator: Itay Banner <itay@ibanner.co.il>\n"
 "Language-Team: Effective Web\n"
 "Language: he_IL\n"
@@ -34,28 +34,28 @@ msgstr "שנה עברית"
 msgid "Panmaz Class"
 msgstr "מחזור פנמ\"צ"
 
-#: admin/alumni-admin-columns.php:54
+#: admin/alumni-admin-columns.php:53
 msgctxt "Award Ordering"
 msgid "Order"
 msgstr "סדר"
 
-#: admin/alumni-admin-columns.php:55
+#: admin/alumni-admin-columns.php:54
 msgid "Award Recipient"
 msgstr "מקבל/ת הפרס"
 
-#: admin/alumni-admin-columns.php:56
+#: admin/alumni-admin-columns.php:55
 msgid "Featured Image"
 msgstr "תמונה"
 
-#: admin/alumni-admin-columns.php:57
+#: admin/alumni-admin-columns.php:56
 msgid "Award Year"
 msgstr "שנה"
 
-#: admin/alumni-admin-columns.php:58
+#: admin/alumni-admin-columns.php:57
 msgid "Award Link"
 msgstr "קישור מידע"
 
-#: admin/alumni-admin-columns.php:75
+#: admin/alumni-admin-columns.php:74
 msgctxt "Award Link"
 msgid "Open"
 msgstr "פתיחה"
@@ -168,13 +168,43 @@ msgstr "דף נוכחי"
 msgid "EFW Utility Tags"
 msgstr "תגיות EFW"
 
-#: modules/alumni-search.php:112
+#: modules/alumni-search.php:110
 msgid "Did you mean:"
 msgstr "ייתכן שהתכוונת ל:"
 
 #: shortcodes/alumni-shortcode.php:32
 msgid "Alumnus not found"
 msgstr "בוגר/ת לא נמצא/ה"
+
+#: shortcodes/alumni-shortcode.php:169
+msgctxt "Masculine"
+msgid "Graduated in"
+msgstr "בוגר"
+
+#: shortcodes/alumni-shortcode.php:172
+msgctxt "Feminine"
+msgid "Graduated in"
+msgstr "בוגרת"
+
+#: shortcodes/alumni-shortcode.php:175
+msgctxt "Gender Neutral"
+msgid "Graduated in"
+msgstr "בוגר/ת"
+
+#: shortcodes/alumni-shortcode.php:180
+msgctxt "Masculine"
+msgid "Studied with"
+msgstr "למד עם"
+
+#: shortcodes/alumni-shortcode.php:183
+msgctxt "Feminine"
+msgid "Studied with"
+msgstr "למדה עם"
+
+#: shortcodes/alumni-shortcode.php:186
+msgctxt "Gender Neutral"
+msgid "Studied with"
+msgstr "למד/ה עם"
 
 #: widgets/alumni-search-results.php:14
 msgid "Alumni Search Results"
