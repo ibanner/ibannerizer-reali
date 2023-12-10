@@ -38,7 +38,7 @@ class EFW_Loginout_url extends \Elementor\Core\DynamicTags\Tag {
 	}
 
 	public function render() {
-		$redirect = ('current' == $this->get_settings( 'redirect' ) ? $_SERVER['REQUEST_URI'] : '' );
+		$redirect = ('current' == $this->get_settings( 'redirect' ) ? $_SERVER['REQUEST_URI'] : site_url() );
 		if ( ! is_user_logged_in() ) {
 			echo esc_url( wp_login_url( $redirect ) );
 		} else {
