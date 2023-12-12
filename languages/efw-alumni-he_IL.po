@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Reali Alumni Website\n"
 "POT-Creation-Date: 2023-12-10 17:23+0200\n"
-"PO-Revision-Date: 2023-12-10 17:23+0200\n"
+"PO-Revision-Date: 2023-12-12 16:15+0200\n"
 "Last-Translator: Itay Banner <itay@ibanner.co.il>\n"
 "Language-Team: Effective Web\n"
 "Language: he_IL\n"
@@ -41,7 +41,7 @@ msgstr "סדר"
 
 #: admin/alumni-admin-columns.php:54
 msgid "Award Recipient"
-msgstr "מקבל/ת הפרס"
+msgstr "מקבל.ת הפרס"
 
 #: admin/alumni-admin-columns.php:55
 msgid "Featured Image"
@@ -63,7 +63,7 @@ msgstr "פתיחה"
 #: dynamic-tags/alumni-claiming-user-dynamic-tag.php:39
 #: dynamic-tags/alumni-claiming-user-dynamic-tag.php:101
 msgid "Claiming User Data"
-msgstr "נתוני בוגר/ת משויך/ת"
+msgstr "נתוני בוגר.ת משויך.ת"
 
 #: dynamic-tags/alumni-claiming-user-dynamic-tag.php:84
 msgid "Email"
@@ -71,11 +71,11 @@ msgstr "דוא\"ל"
 
 #: dynamic-tags/alumni-claiming-user-dynamic-tag.php:85
 msgid "Claimed Alumnus ID"
-msgstr "מזהה בוגר/ת משויך/ת"
+msgstr "מזהה בוגר.ת משויך.ת"
 
 #: dynamic-tags/alumni-claiming-user-dynamic-tag.php:86
 msgid "Claimed Alumnus Name"
-msgstr "שם בוגר/ת משויך/ת"
+msgstr "שם בוגר.ת משויך.ת"
 
 #: dynamic-tags/alumni-claiming-user-dynamic-tag.php:87
 msgid "Email Consent"
@@ -111,7 +111,7 @@ msgstr "קישור אינסטגרם"
 
 #: dynamic-tags/alumni-claiming-user-photo-dynamic-tag.php:29
 msgid "Claiming User Photo"
-msgstr "תמונת בוגר/ת משויך/ת"
+msgstr "תמונת בוגר.ת משויך.ת"
 
 #: dynamic-tags/alumni-name-formats-dynamic-tag.php:39
 msgid "Alumni Name Format"
@@ -174,7 +174,7 @@ msgstr "ייתכן שהתכוונת ל:"
 
 #: shortcodes/alumni-shortcode.php:32
 msgid "Alumnus not found"
-msgstr "בוגר/ת לא נמצא/ה"
+msgstr "בוגר.ת לא נמצא.ה"
 
 #: shortcodes/alumni-shortcode.php:169
 msgctxt "Masculine"
@@ -189,7 +189,7 @@ msgstr "בוגרת"
 #: shortcodes/alumni-shortcode.php:175
 msgctxt "Gender Neutral"
 msgid "Graduated in"
-msgstr "בוגר/ת"
+msgstr "בוגר.ת"
 
 #: shortcodes/alumni-shortcode.php:180
 msgctxt "Masculine"
@@ -204,11 +204,11 @@ msgstr "למדה עם"
 #: shortcodes/alumni-shortcode.php:186
 msgctxt "Gender Neutral"
 msgid "Studied with"
-msgstr "למד/ה עם"
+msgstr "למד.ה עם"
 
 #: widgets/alumni-search-results.php:14
 msgid "Alumni Search Results"
-msgstr "תוצאות חיפוש בוגרים/ות"
+msgstr "תוצאות חיפוש בוגרים.ות"
 
 #: widgets/alumni-search-results.php:37
 msgid "Content"
@@ -240,7 +240,7 @@ msgstr "כיתוב כשאין תוצאות"
 
 #: widgets/alumni-search-results.php:69 widgets/alumni-search-results.php:70
 msgid "No people found with that name."
-msgstr "לא נמצאו בוגרים/ות בשם זה."
+msgstr "לא נמצאו בוגרים.ות בשם זה."
 
 #: widgets/alumni-search-results.php:79
 msgid "Class Titles"
@@ -258,7 +258,7 @@ msgstr "צבע"
 
 #: widgets/alumni-search-results.php:110
 msgid "Alumni Names"
-msgstr "שמות בוגרים/ות"
+msgstr "שמות בוגרים.ות"
 
 #: widgets/alumni-search-results.php:141
 msgid "RIP Suffix"
