@@ -16,7 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 {
     public function get_categories()
     {
-        return [ \Elementor\Modules\DynamicTags\Module::IMAGE_CATEGORY ];
+        return [
+			\Elementor\Modules\DynamicTags\Module::URL_CATEGORY,
+			\Elementor\Modules\DynamicTags\Module::TEXT_CATEGORY,
+			\Elementor\Modules\DynamicTags\Module::IMAGE_CATEGORY,
+			\Elementor\Modules\DynamicTags\Module::POST_META_CATEGORY,
+			 ];
     }
 
     public function get_group()
@@ -26,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     public function get_title()
     {
-        return esc_html__( 'Claiming User Photo', 'ibannerizer' );
+        return esc_html__( 'Claiming User Photo', 'efw-alumni' );
     }
 
     public function get_name()
@@ -36,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     public function get_value( array $options = array() )
     {
-        $claiming_user = get_field( 'claiming_user' );
+        $claiming_user = ( get_field( 'claiming_user' ) ?: wp_get_current_user() );
 
 		if ( ! $claiming_user || ! isset( $claiming_user ) ) {
 			return;
@@ -52,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             ]; 
 			
 		} else {
-			return;
+			return FALSE;
 		}
     }
 }

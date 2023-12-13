@@ -85,6 +85,7 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 			'alum_id' => esc_html__( 'Claimed Alumnus ID', 'efw-alumni' ),
 			'alum_name' => esc_html__( 'Claimed Alumnus Name', 'efw-alumni' ),
 			'email_consent' => esc_html__( 'Email Consent', 'efw-alumni' ),
+			'current_photo' => esc_html__( 'Current Photo ID', 'efw-alumni' ),
 			'phone_num' => esc_html__( 'Phone Number', 'efw-alumni' ),
 			'about_alumni' => esc_html__( 'User Bio', 'efw-alumni' ),
 			'website_url' => esc_html__( 'Website URL', 'efw-alumni' ),
@@ -120,14 +121,18 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 			return;
 		}
 
-		$claiming_user = get_field( 'claiming_user' );
+		$claiming_user = ( get_field( 'claiming_user' ) ?: wp_get_current_user() );
 
-		if ( ! $claiming_user || ! isset( $claiming_user ) ) {
-			return;
-		}
+		// if ( ! $claiming_user || ! isset( $claiming_user ) ) {
+		// 	return;
+		// }
 
 		if( $claiming_user->has_prop( $claiming_user_data_selected ) ){
 			echo $claiming_user->get( $claiming_user_data_selected ) ;
+		} elseif ('current_photo') {
+			$pid = $claiming_user->get( 'current_photo' );
+			do_action( 'qm/debug', 'pid' . ': ' . $pid ); // RBF
+			echo $pid;
 		} else {
 			return;
 		}
