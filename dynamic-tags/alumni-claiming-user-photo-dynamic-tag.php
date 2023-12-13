@@ -41,7 +41,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     public function get_value( array $options = array() )
     {
-        $claiming_user = ( get_field( 'claiming_user' ) ?: wp_get_current_user() );
+        
+        $claiming_user = ( is_page('update') ? wp_get_current_user() : get_field( 'claiming_user' ) );
 
 		if ( ! $claiming_user || ! isset( $claiming_user ) ) {
 			return;
