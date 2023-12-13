@@ -27,6 +27,10 @@ function efw_shortcode_alumni( $atts ) {
         case 'elementor_library':
             return '[' . $a['get'] . ']';
             break;
+        
+		case 'page':
+            $aid = efw_get_current_user_claimed_alum_id();
+            break;
 
         default:
             return esc_html__( 'Alumnus not found', 'efw-alumni' ) . ' (type: ' . get_post_type() . ')';
@@ -186,9 +190,11 @@ function efw_shortcode_alumni( $atts ) {
 					$output = esc_html_x( 'Studied with' , 'Gender Neutral' , 'efw-alumni' );
 				}
 			}
-			
-			
 			break;
+		
+		case "alum-permalink":
+			return efw_get_current_user_claimed_alum_permalink();
+            break;
 		
 		case "debug":
             return $aid; //RBF
