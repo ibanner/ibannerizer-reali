@@ -131,7 +131,6 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 			echo $claiming_user->get( $claiming_user_data_selected ) ;
 		} elseif ('current_photo') {
 			$pid = $claiming_user->get( 'current_photo' );
-			do_action( 'qm/debug', 'pid' . ': ' . $pid ); // RBF
 			echo $pid;
 		} else {
 			return;
