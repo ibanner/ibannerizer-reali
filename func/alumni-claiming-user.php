@@ -126,3 +126,41 @@ add_action( 'wpforms_process_complete_75669', 'efw_on_user_photo_save', 10, 4 );
 }
  
 add_filter( 'wpforms_process_smart_tags', 'efw_wpforms_do_shortcodes_in_confirmation', 12, 1 );
+
+/**
+ * Show values in Dropdown, checkboxes, and Multiple Choice.
+ *
+ * @link https://wpforms.com/developers/add-field-values-for-dropdown-checkboxes-and-multiple-choice-fields/
+ */
+  
+ add_filter( 'wpforms_fields_show_options_setting', '__return_true' );
+
+ /**
+ * Register the Smart Tag so it will be available to select in the form builder.
+ *
+ * @link   https://wpforms.com/developers/how-to-create-a-custom-smart-tag/
+ */
+ 
+function efw_register_wpforms_smarttags( $tags ) {
+ 
+    // Key is the tag, item is the tag name.
+    $tags[ 'current_aid' ] = 'Current Photo ID';
+ 
+    return $tags;
+}
+add_filter( 'wpforms_smart_tags', 'efw_register_wpforms_smarttags', 10, 1 );
+ 
+/**
+ * Process the Smart Tag.
+ *
+ * @link   https://wpforms.com/developers/how-to-create-a-custom-smart-tag/
+ */
+ 
+function efw_process_wpforms_smarttags( $content, $tag ) {
+     if ( 'current_aid' === $tag ) {
+        $current_aid = ( get_field('current_photo', 'user_' . get_current_user_id() ) ?: FALSE );
+        $content = str_replace( '{current_aid}', $current_aid , $content );
+    }
+    return $content;
+}
+add_filter( 'wpforms_smart_tag_process', 'efw_process_wpforms_smarttags', 10, 2 );
