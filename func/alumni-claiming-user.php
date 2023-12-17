@@ -80,3 +80,49 @@ function efw_get_user_claimed_alum_permalink( $user_id ) {
 function efw_get_current_user_claimed_alum_permalink() {
     return efw_get_user_claimed_alum_permalink( get_current_user_ID() );
 }
+
+/**
+ * This will fire at the very end of a (successful) form entry.
+ *
+ * @link  https://wpforms.com/developers/wpforms_process_complete/
+ *
+ * @param array  $fields    Sanitized entry field values/properties.
+ * @param array  $entry     Original $_POST global.
+ * @param array  $form_data Form data and settings.
+ * @param int    $entry_id  Entry ID. Will return 0 if entry storage is disabled or using WPForms Lite.
+ */
+ 
+ function efw_on_user_photo_save( $fields, $entry, $form_data, $entry_id ) {
+
+    $previous_aid = get_field('current_photo', 'user_' . get_current_user_id() );
+    if ( isset( $previous_aid ) ) {
+        wp_delete_attachment( $previous_aid , TRUE );
+    }
+     
+    // Get the full entry object
+    $entry = wpforms()->entry->get( $entry_id );
+    
+    // Fields are in JSON, so we decode to an array
+    $entry_fields = json_decode( $entry->fields, true );
+ 
+    // Save changes
+    $aid = $entry_fields[23]['value_raw'][0][ 'attachment_id' ];
+    if ( $aid ) {
+        update_field('current_photo', $aid , 'user_' . get_current_user_id() );
+    }
+}
+add_action( 'wpforms_process_complete_75669', 'efw_on_user_photo_save', 10, 4 );
+
+
+/**
+ * Run shortcodes in WPForms' confirmation messages. Required for the user photo form.
+ *
+ * @link   https://wpforms.com/developers/how-to-display-shortcodes-inside-the-confirmation-message/
+ */
+ 
+ function efw_wpforms_do_shortcodes_in_confirmation( $content ) {
+     
+    return do_shortcode( $content );
+}
+ 
+add_filter( 'wpforms_process_smart_tags', 'efw_wpforms_do_shortcodes_in_confirmation', 12, 1 );
