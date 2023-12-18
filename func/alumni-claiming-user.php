@@ -164,3 +164,21 @@ function efw_process_wpforms_smarttags( $content, $tag ) {
     return $content;
 }
 add_filter( 'wpforms_smart_tag_process', 'efw_process_wpforms_smarttags', 10, 2 );
+
+
+add_action( 'delete_user', 'efw_disconnect_claiming_user' );
+
+/**
+ * efw_disconnect_claiming_user
+ *
+ * @param int $user_id      The user ID to be disconnected from the associated alumnus
+ * 
+ * @return void 
+ */
+function efw_disconnect_claiming_user( $user_id ) {
+    $aid = efw_get_user_claimed_alum_id( $user_id );
+    if ( TRUE == has_term( 'claimed', 'group' , $aid ) ) {
+        wp_remove_object_terms($aid, 'claimed', 'group');
+    }
+    update_field('claiming_user', '', $aid );
+}
