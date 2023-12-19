@@ -71,8 +71,8 @@ function efw_login_message() {
 add_filter( 'login_message', 'efw_login_message' );
 
 function efw_login_footer() {
-    $alum_url = 'https://alumni.reali.org.il/alumnus/14152/';
-    $class_url = 'https://alumni.reali.org.il/al-class/%d7%a2%d7%93/';
+    $alum_url = site_url() . '/alumnus/14152/';
+    $class_url = site_url() . '/al-class/%d7%a2%d7%93/';
     echo '<div id="efw-login-footer">';
     echo '<h3><strong>איפיון ופיתוח:</strong> <a href="' . $alum_url . '" rel="noopener">איתי בנר</a> (מחזור <a href="' . $class_url . '"><strong>ע"ד</strong></a>) - <a href="https://effective-web.co.il" target="_blank" rel="noopener">Effective Web</a></h3>';
     echo '</div>';
