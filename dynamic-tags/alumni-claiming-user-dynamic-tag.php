@@ -83,6 +83,7 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 		$data_labels = array(
 			'user_email' => esc_html__( 'Email', 'efw-alumni' ),
 			'alum_id' => esc_html__( 'Claimed Alumnus ID', 'efw-alumni' ),
+			'alum_url' => esc_html__( 'Claimed Alumnus URL', 'efw-alumni' ),
 			'alum_name' => esc_html__( 'Claimed Alumnus Name', 'efw-alumni' ),
 			'email_consent' => esc_html__( 'Email Consent', 'efw-alumni' ),
 			'current_photo' => esc_html__( 'Current Photo ID', 'efw-alumni' ),
@@ -129,9 +130,11 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 
 		if( $claiming_user->has_prop( $claiming_user_data_selected ) ){
 			echo $claiming_user->get( $claiming_user_data_selected ) ;
-		} elseif ('current_photo') {
+		} elseif ('current_photo' == $claiming_user_data_selected ) {
 			$pid = $claiming_user->get( 'current_photo' );
 			echo $pid;
+		} elseif ('alum_url' == $claiming_user_data_selected ) {
+			echo efw_get_current_user_claimed_alum_permalink();
 		} else {
 			return;
 		}
