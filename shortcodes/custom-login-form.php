@@ -17,7 +17,7 @@ function efw_custom_login_form_shortcode() {
       'echo'            => true,
       'label_username'  => esc_html__( 'Email', 'efw-alumni' ),
       'form_id'         => 'popup_login',
-      'redirect'        => site_url( '/me/' ),
+      // 'redirect'        => site_url( '/me/' ),
       'remember'        => true,
       'value_remember'  => true,
     );
