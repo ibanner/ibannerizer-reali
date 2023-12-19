@@ -196,12 +196,8 @@ function efw_shortcode_alumni( $atts ) {
 			return efw_get_current_user_claimed_alum_permalink();
             break;
 		
-		case "debug":
-            return $aid; //RBF
-            break;
-			
 		default:
-    		return get_field($a['get'], "al-class_" . $class_id);
+            break;
 	}
 
     return $output;
