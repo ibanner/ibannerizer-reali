@@ -49,16 +49,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 
         if( $claiming_user->has_prop( 'current_photo' ) ){
-
-            $pid = $claiming_user->get( 'current_photo' );
-            if ($pid) {
-                return [
-                    'id' => $pid,
-                    'url' => wp_get_attachment_image_src($pid, 'full')[0],
-                ]; 
-            } else {
-                return FALSE;
+            $current_photo = [
+                'id' => intval( $claiming_user->get( 'current_photo' ) ),
+                'url' => '',
+            ];
+            if ( 0 != $current_photo['id'] ) {
+                $current_photo['url'] = wp_get_attachment_image_src( $current_photo['id'], 'full')[0];
             }
+            return $current_photo;
 		}
     }
 }

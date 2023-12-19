@@ -124,20 +124,18 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 
 		$claiming_user = ( get_field( 'claiming_user' ) ?: wp_get_current_user() );
 
-		// if ( ! $claiming_user || ! isset( $claiming_user ) ) {
-		// 	return;
-		// }
-
 		if( $claiming_user->has_prop( $claiming_user_data_selected ) ){
-			echo $claiming_user->get( $claiming_user_data_selected ) ;
-		} elseif ('current_photo' == $claiming_user_data_selected ) {
-			$pid = $claiming_user->get( 'current_photo' );
-			echo $pid;
-		} elseif ('alum_url' == $claiming_user_data_selected ) {
-			echo efw_get_current_user_claimed_alum_permalink();
-		} else {
-			return;
-		}
+			switch ( $claiming_user_data_selected ) {
+				case 'alum_url':
+					echo efw_get_current_user_claimed_alum_permalink();
+					break;
+				default:
+					$val = $claiming_user->get( $claiming_user_data_selected ) ;
+					echo $val;
+					break;
+			}
+			
+		} else { return; }
 	}
 
 }
