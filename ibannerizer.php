@@ -33,6 +33,7 @@ require_once( EFW__PLUGIN_DIR . 'post-types/alumnus.php' );
 require_once( EFW__PLUGIN_DIR . 'post-types/award.php' );
 
 require_once( EFW__PLUGIN_DIR . 'shortcodes/alumni-shortcode.php' );
+require_once( EFW__PLUGIN_DIR . 'shortcodes/custom-login-form.php' );
 
 require_once( EFW__PLUGIN_DIR . 'admin/alumni-admin-columns.php' );
 
@@ -170,3 +171,16 @@ function ibn_set_claiming_user_names ( $alumnus_id , $user_id , $current_f_name 
   }
   
 }
+
+/**
+ * remove_admin_bar for non admins
+ *
+ * @return void
+ */
+function efw_remove_admin_bar_for_non_admins() {
+  if ( ! current_user_can( 'manage_options' ) ) {
+    show_admin_bar(false);
+  }
+}
+
+add_action('after_setup_theme', 'efw_remove_admin_bar_for_non_admins');
