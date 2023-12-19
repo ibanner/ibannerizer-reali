@@ -80,3 +80,21 @@ function efw_login_footer() {
 add_filter( 'login_footer', 'efw_login_footer' );
 
 add_filter( 'login_display_language_dropdown', '__return_false' );
+
+/**
+ * efw_page_template_redirect
+ * 
+ * Setting redirect destinations for special cases
+ *
+ * @return void
+ */
+function efw_page_template_redirect() {
+    if ( ( is_page( 'me' ) || is_page( 'update') ) && ! is_user_logged_in() ) {
+        wp_redirect( site_url() );
+        exit();
+    } elseif ( is_page( 'me' ) && is_user_logged_in() ) {
+        wp_redirect( efw_get_current_user_claimed_alum_permalink() );
+        exit();
+    }
+}
+add_action( 'template_redirect', 'efw_page_template_redirect' );
