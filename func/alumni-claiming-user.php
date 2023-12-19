@@ -95,6 +95,7 @@ function efw_get_current_user_claimed_alum_permalink() {
  function efw_on_user_photo_save( $fields, $entry, $form_data, $entry_id ) {
 
     $previous_aid = get_field('current_photo', 'user_' . get_current_user_id() );
+    
     if ( isset( $previous_aid ) ) {
         wp_delete_attachment( $previous_aid , TRUE );
     }
@@ -106,10 +107,13 @@ function efw_get_current_user_claimed_alum_permalink() {
     $entry_fields = json_decode( $entry->fields, true );
  
     // Save changes
-    $aid = $entry_fields[23]['value_raw'][0][ 'attachment_id' ];
-    if ( $aid ) {
-        update_field('current_photo', $aid , 'user_' . get_current_user_id() );
+    error_log('entry_fields: ' . print_r($entry_fields,true)); //RBF
+    $attachment_id = '';
+    if ( is_array($entry_fields[23][ 'value_raw' ]) ) {
+        $attachment_id = intval( $entry_fields[23]['value_raw'][0][ 'attachment_id' ]);
     }
+
+    update_field('current_photo', $attachment_id , 'user_' . get_current_user_id() );
 }
 add_action( 'wpforms_process_complete_75669', 'efw_on_user_photo_save', 10, 4 );
 
