@@ -125,7 +125,7 @@ class Elementor_Dynamic_Tag_Alumni_Name_Format extends Elementor\Core\DynamicTag
 			'user_override',
 			[
 				'type' => \Elementor\Controls_Manager::SELECT,
-				'label' => esc_html__( 'Claiming User Data', 'efw-alumni' ),
+				'label' => esc_html__( 'Claiming User Names', 'efw-alumni' ),
 				'options' => [
 					'yes' => esc_html__( 'Override', 'efw-alumni' ),
 					'no' => esc_html__( 'Ignore', 'efw-alumni' ),

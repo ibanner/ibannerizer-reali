@@ -37,23 +37,22 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
         $parts[$slug] = get_field( $slug , $aid );
     }
 
-    // do_action( 'qm/debug', 'parts before' . ': ' . print_r($parts,true) ); // RBF
-
     if ( 1 == $user_override ) {
         $claiming_user = get_field( 'claiming_user' , $aid );
-        if ( is_object( $claiming_user ) && ! $claiming_user->has_prop( 'first_name' ) ) {
-            $uid = $claiming_user->ID;
-            $claiming_user = get_userdata( $uid );
-        } elseif ( is_string( $claiming_user ) ) {
-            $uid = $claiming_user;
-            $claiming_user = get_userdata( $claiming_user );
-        }
-
-        if ( empty($parts['current_f_name']) ) {
-            $parts['current_f_name'] = $claiming_user->first_name;
-        }
-        if ( empty($parts['current_l_name']) ) {
-            $parts['current_l_name'] = $claiming_user->last_name;
+        if ( $claiming_user ) {
+            if ( is_object( $claiming_user ) && ! $claiming_user->has_prop( 'first_name' ) ) {
+                $uid = $claiming_user->ID;
+                $claiming_user = get_userdata( $uid );
+            } elseif ( is_string( $claiming_user ) ) {
+                $uid = $claiming_user;
+                $claiming_user = get_userdata( $claiming_user );
+            }
+            if ( empty($parts['current_f_name']) ) {
+                $parts['current_f_name'] = $claiming_user->first_name;
+            }
+            if ( empty($parts['current_l_name']) ) {
+                $parts['current_l_name'] = $claiming_user->last_name;
+            }
         }
         // do_action( 'qm/debug', 'parts after' . ': ' . print_r($parts,true) ); // RBF
     }
