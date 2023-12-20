@@ -82,7 +82,9 @@ function efw_get_current_user_claimed_alum_permalink() {
 }
 
 /**
- * This will fire at the very end of a (successful) form entry.
+ * efw_wpf_on_user_photo_save
+ * 
+ * Handle user's current photo form actions: deletes the previous photo if existing, and associates the new one if uploaded.
  *
  * @link  https://wpforms.com/developers/wpforms_process_complete/
  *
@@ -92,30 +94,43 @@ function efw_get_current_user_claimed_alum_permalink() {
  * @param int    $entry_id  Entry ID. Will return 0 if entry storage is disabled or using WPForms Lite.
  */
  
- function efw_on_user_photo_save( $fields, $entry, $form_data, $entry_id ) {
-
+ function efw_wpf_on_user_photo_save( $fields, $entry, $form_data, $entry_id ) {
     $previous_aid = get_field('current_photo', 'user_' . get_current_user_id() );
-    
     if ( isset( $previous_aid ) ) {
         wp_delete_attachment( $previous_aid , TRUE );
     }
-     
-    // Get the full entry object
     $entry = wpforms()->entry->get( $entry_id );
-    
-    // Fields are in JSON, so we decode to an array
     $entry_fields = json_decode( $entry->fields, true );
- 
-    // Save changes
-    error_log('entry_fields: ' . print_r($entry_fields,true)); //RBF
+    // error_log('entry_fields: ' . print_r($entry_fields,true)); //RBF
     $attachment_id = '';
     if ( is_array($entry_fields[23][ 'value_raw' ]) ) {
         $attachment_id = intval( $entry_fields[23]['value_raw'][0][ 'attachment_id' ]);
     }
-
     update_field('current_photo', $attachment_id , 'user_' . get_current_user_id() );
 }
-add_action( 'wpforms_process_complete_75669', 'efw_on_user_photo_save', 10, 4 );
+add_action( 'wpforms_process_complete_75669', 'efw_wpf_on_user_photo_save', 10, 4 );
+
+
+/**
+ * efw_wpf_update_user_email_consent
+ * 
+ * Handle user's consent to display their email in the alumnus page
+ *
+ * @link  https://wpforms.com/developers/wpforms_process_complete/
+ *
+ * @param array  $fields    Sanitized entry field values/properties.
+ * @param array  $entry     Original $_POST global.
+ * @param array  $form_data Form data and settings.
+ * @param int    $entry_id  Entry ID. Will return 0 if entry storage is disabled or using WPForms Lite.
+ */
+ 
+ function efw_wpf_update_user_email_consent( $fields, $entry, $form_data, $entry_id ) { 
+    $entry = wpforms()->entry->get( $entry_id );
+    $entry_fields = json_decode( $entry->fields, true );
+    $consent = ( 1 == $entry_fields[20][ 'value_raw' ] ?: 0 );
+    update_field('email_consent', $consent , 'user_' . get_current_user_id() );
+}
+add_action( 'wpforms_process_complete_75305', 'efw_wpf_update_user_email_consent', 10, 4 );
 
 
 /**
@@ -186,3 +201,28 @@ function efw_disconnect_claiming_user( $user_id ) {
     }
     update_field('claiming_user', '', $aid );
 }
+
+
+/**
+ * efw_wpf_filter_email_consent_value
+ *
+ * @link https://wpforms.com/developers/wpforms_field_properties/
+ */
+  
+ function efw_wpf_filter_email_consent_value( $properties, $field, $form_data ) {
+    if ( absint( $form_data[ 'id' ] ) !== 75305 ) {
+        return $properties;
+    }
+    $has_consented = get_field('email_consent', 'user_' . get_current_user_id() );
+    error_log('has_consented: ' . $has_consented ); //RBF
+    error_log('properties before: ' . print_r($properties['inputs'][1],true)); //RBF
+    if ( 1 == $has_consented ) {
+        $properties['inputs'][1]['container']['class'][2] = 'wpforms-selected';
+        $properties['inputs'][1]['default'] = 1;
+
+    }
+    error_log('properties after: ' . print_r($properties['inputs'][1],true)); //RBF
+    
+    return $properties;
+}
+add_filter( 'wpforms_field_properties_checkbox', 'efw_wpf_filter_email_consent_value', 10, 3 );
