@@ -157,7 +157,7 @@ function ibn_set_claiming_user_names ( $alumnus_id , $user_id , $current_f_name 
     $args = array(
       'ID' => $user_id,
       'display_name' => $alumnus_f_name . ' ' . $alumnus_l_name,
-      'nickname' => $alumnus_f_name . ' ' . $alumnus_l_name,
+      'nickname' => '',
       'alum_id' => $alumnus_id,
       'first_name' => $alumnus_f_name,
       'last_name' => $alumnus_l_name,
