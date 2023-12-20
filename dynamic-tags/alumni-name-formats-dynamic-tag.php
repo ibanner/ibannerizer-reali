@@ -120,6 +120,19 @@ class Elementor_Dynamic_Tag_Alumni_Name_Format extends Elementor\Core\DynamicTag
 				'default' => 'no',
 			]
 		);
+        
+		$this->add_control(
+			'user_override',
+			[
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'label' => esc_html__( 'Claiming User Data', 'efw-alumni' ),
+				'options' => [
+					'yes' => esc_html__( 'Override', 'efw-alumni' ),
+					'no' => esc_html__( 'Ignore', 'efw-alumni' ),
+				],
+				'default' => 'no',
+			]
+		);
 	}
 
 	/**
@@ -135,8 +148,9 @@ class Elementor_Dynamic_Tag_Alumni_Name_Format extends Elementor\Core\DynamicTag
 		$format = $this->get_settings( 'alumni_name_format' );
         $nickname = ( 'yes' == $this->get_settings( 'alumni_nickname' ) ? 1 : 0 );
         $rip = ( 'yes' == $this->get_settings( 'alumni_rip' ) ? 1 : 0 );
+        $user_override = ( 'yes' == $this->get_settings( 'user_override' ) ? 1 : 0 );
 
-		echo efw_get_alumnus_name( get_the_ID() , $format , $nickname , $rip );
+		echo efw_get_alumnus_name( get_the_ID() , $format , $nickname , $rip , $user_override );
 	}
 
 }
