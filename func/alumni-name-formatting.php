@@ -49,12 +49,8 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
                 $uid = $claiming_user;
                 $claiming_user = get_userdata( $claiming_user );
             }
-
             $user_has_cf_name = ( 1 != empty($claiming_user->first_name) && $parts['f_name_heb'] != $claiming_user->first_name ? 1 : 0 );
             $user_has_cl_name = ( 1 != empty($claiming_user->last_name) && $parts['l_name_heb'] != $claiming_user->last_name ? 1 : 0 );
-            do_action( 'qm/debug', 'user_has_cl_name' . ': ' . $user_has_cl_name ); // RBF
-            do_action( 'qm/debug', 'last_name isset' . ': ' . empty($claiming_user->last_name) ); // RBF
-
             if ( 1 == $user_has_cf_name && $parts['current_f_name'] != $claiming_user->first_name ) {
                 $parts['current_f_name'] = $claiming_user->first_name;
             }
@@ -63,19 +59,14 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
             }
         }
     }
-
     $is_fallen = ( 1 == get_field('is_fallen' , $aid) ? TRUE : FALSE );
-
     if ( $parts ) {
-
         $output .= $parts['f_name_heb'] . ' ';
         $output .= ( 'full_current' == $format && $parts['current_f_name'] ?  '(' . $parts['current_f_name'] . ') ' : '');
         $output .= $parts['l_name_heb'] . ' ';
         $output .= (  'full_current' == $format && $parts['current_l_name'] ?  '(' . $parts['current_l_name'] . ') ' : '');
         $output .= ( 1 == $nickname && $parts['nickname'] ?  '<span class="nickname">(' . $parts['nickname'] . ') </span>' : '');
         $output .= ( 1 == $rip && $is_fallen ?  '<span class="rip">' . esc_html__( 'RIP', 'efw-alumni' ) . '</span>' : '');
-        
     }
-    
     return $output;
 }
