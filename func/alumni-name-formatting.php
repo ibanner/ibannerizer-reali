@@ -37,6 +37,8 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
         $parts[$slug] = ( get_field( $slug , $aid ) ? : null );
     }
 
+    do_action( 'qm/debug', 'parts current_last_name' . ': ' . $parts['current_l_name'] ); // RBF
+
     if ( 1 == $user_override ) {
         $claiming_user = get_field( 'claiming_user' , $aid );
         if ( $claiming_user ) {
@@ -48,13 +50,15 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
                 $claiming_user = get_userdata( $claiming_user );
             }
 
-            $user_has_cf_name = ( $parts['f_name_heb'] != $claiming_user->first_name ? 1 : 0 );
-            $user_has_cl_name = ( $parts['l_name_heb'] != $claiming_user->last_name ? 1 : 0 );
+            $user_has_cf_name = ( 1 != empty($claiming_user->first_name) && $parts['f_name_heb'] != $claiming_user->first_name ? 1 : 0 );
+            $user_has_cl_name = ( 1 != empty($claiming_user->last_name) && $parts['l_name_heb'] != $claiming_user->last_name ? 1 : 0 );
+            do_action( 'qm/debug', 'user_has_cl_name' . ': ' . $user_has_cl_name ); // RBF
+            do_action( 'qm/debug', 'last_name isset' . ': ' . empty($claiming_user->last_name) ); // RBF
 
-            if ( 1 == $user_has_cl_name && $parts['current_f_name'] != $claiming_user->first_name ) {
+            if ( 1 == $user_has_cf_name && $parts['current_f_name'] != $claiming_user->first_name ) {
                 $parts['current_f_name'] = $claiming_user->first_name;
             }
-            if ( 1 == $user_has_cf_name && $parts['current_l_name'] != $claiming_user->last_name  ) {
+            if ( 1 == $user_has_cl_name && $parts['current_l_name'] != $claiming_user->last_name  ) {
                 $parts['current_l_name'] = $claiming_user->last_name;
             }
         }
