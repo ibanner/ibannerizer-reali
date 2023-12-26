@@ -34,7 +34,7 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
     $parts = [];
 
     foreach ( $fields as $slug ) {
-        $parts[$slug] = get_field( $slug , $aid );
+        $parts[$slug] = ( get_field( $slug , $aid ) ? : null );
     }
 
     if ( 1 == $user_override ) {
@@ -47,19 +47,20 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
                 $uid = $claiming_user;
                 $claiming_user = get_userdata( $claiming_user );
             }
-            if ( empty($parts['current_f_name']) ) {
+
+            $user_has_cf_name = ( $parts['f_name_heb'] != $claiming_user->first_name ? 1 : 0 );
+            $user_has_cl_name = ( $parts['l_name_heb'] != $claiming_user->last_name ? 1 : 0 );
+
+            if ( 1 == $user_has_cl_name && $parts['current_f_name'] != $claiming_user->first_name ) {
                 $parts['current_f_name'] = $claiming_user->first_name;
             }
-            if ( empty($parts['current_l_name']) ) {
+            if ( 1 == $user_has_cf_name && $parts['current_l_name'] != $claiming_user->last_name  ) {
                 $parts['current_l_name'] = $claiming_user->last_name;
             }
         }
-        // do_action( 'qm/debug', 'parts after' . ': ' . print_r($parts,true) ); // RBF
     }
 
     $is_fallen = ( 1 == get_field('is_fallen' , $aid) ? TRUE : FALSE );
-
-    
 
     if ( $parts ) {
 
