@@ -37,8 +37,6 @@ function efw_get_alumnus_name( $post_id , $format = 'full_current' , $nickname =
         $parts[$slug] = ( get_field( $slug , $aid ) ? : null );
     }
 
-    do_action( 'qm/debug', 'parts current_last_name' . ': ' . $parts['current_l_name'] ); // RBF
-
     if ( 1 == $user_override ) {
         $claiming_user = get_field( 'claiming_user' , $aid );
         if ( $claiming_user ) {
