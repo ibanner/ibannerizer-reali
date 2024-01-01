@@ -86,6 +86,7 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 			'alum_url' => esc_html__( 'Claimed Alumnus URL', 'efw-alumni' ),
 			'alum_name' => esc_html__( 'Claimed Alumnus Name', 'efw-alumni' ),
 			'email_consent' => esc_html__( 'Email Consent', 'efw-alumni' ),
+			'has_shared' => esc_html__( 'Has Shared Data', 'efw-alumni' ),
 			'current_photo' => esc_html__( 'Current Photo ID', 'efw-alumni' ),
 			'phone_num' => esc_html__( 'Phone Number', 'efw-alumni' ),
 			'about_alumni' => esc_html__( 'User Bio', 'efw-alumni' ),
@@ -124,18 +125,22 @@ class Elementor_Dynamic_Tag_Claiming_User_Data extends Elementor\Core\DynamicTag
 
 		$claiming_user = ( get_field( 'claiming_user' ) ?: wp_get_current_user() );
 
-		if( $claiming_user->has_prop( $claiming_user_data_selected ) ){
-			switch ( $claiming_user_data_selected ) {
-				case 'alum_url':
-					echo efw_get_current_user_claimed_alum_permalink();
-					break;
-				default:
+		switch ( $claiming_user_data_selected ) {
+			case 'alum_url':
+				echo efw_get_current_user_claimed_alum_permalink();
+				break;
+			case 'has_shared':
+				echo efw_has_user_shared_details( $claiming_user->ID );
+				break;
+			default:
+				if( $claiming_user->has_prop( $claiming_user_data_selected ) ) {
 					$val = $claiming_user->get( $claiming_user_data_selected ) ;
 					echo $val;
-					break;
-			}
-			
-		} else { return; }
+				}
+				break;
+		}
+
+		
 	}
 
 }

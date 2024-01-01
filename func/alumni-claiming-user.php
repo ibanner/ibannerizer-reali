@@ -101,7 +101,6 @@ function efw_get_current_user_claimed_alum_permalink() {
     }
     $entry = wpforms()->entry->get( $entry_id );
     $entry_fields = json_decode( $entry->fields, true );
-    // error_log('entry_fields: ' . print_r($entry_fields,true)); //RBF
     $attachment_id = '';
     if ( is_array($entry_fields[23][ 'value_raw' ]) ) {
         $attachment_id = intval( $entry_fields[23]['value_raw'][0][ 'attachment_id' ]);
@@ -214,15 +213,40 @@ function efw_disconnect_claiming_user( $user_id ) {
         return $properties;
     }
     $has_consented = get_field('email_consent', 'user_' . get_current_user_id() );
-    error_log('has_consented: ' . $has_consented ); //RBF
-    error_log('properties before: ' . print_r($properties['inputs'][1],true)); //RBF
-    if ( 1 == $has_consented ) {
-        $properties['inputs'][1]['container']['class'][2] = 'wpforms-selected';
-        $properties['inputs'][1]['default'] = 1;
-
+    if ( 0 == $has_consented ) {
+        $properties['inputs'][1]['default'] = 0;
+        $properties['inputs'][2]['default'] = 1;
     }
-    error_log('properties after: ' . print_r($properties['inputs'][1],true)); //RBF
-    
     return $properties;
 }
-add_filter( 'wpforms_field_properties_checkbox', 'efw_wpf_filter_email_consent_value', 10, 3 );
+add_filter( 'wpforms_field_properties_select', 'efw_wpf_filter_email_consent_value', 10, 3 );
+
+
+/**
+ * efw_has_user_shared_details
+ *
+ * @param int $user_id
+ * 
+ * @return bool 1 if consented to email or shared any other detail, 0 if neither was shared.
+ */
+function efw_has_user_shared_details( $user_id ) {
+    $email_consent = get_field('email_consent', 'user_' . $user_id );
+    if ( 0 != $email_consent ) {
+        return 1; 
+    } 
+    $contact_fields = array(
+        'phone_num',
+        'website_url',
+        'facebook_url',
+        'twitter_url',
+        'linkedin_url',
+        'instagram_url',
+    );
+    foreach ($contact_fields as $slug) {
+        $field = get_field( $slug , 'user_' . $user_id );
+        if ( !empty($field) ) {
+            return 1;
+        }
+    }
+    return 0;
+}
