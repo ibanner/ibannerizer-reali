@@ -109,29 +109,6 @@ function efw_get_current_user_claimed_alum_permalink() {
 }
 add_action( 'wpforms_process_complete_75669', 'efw_wpf_on_user_photo_save', 10, 4 );
 
-
-/**
- * efw_wpf_update_user_email_consent
- * 
- * Handle user's consent to display their email in the alumnus page
- *
- * @link  https://wpforms.com/developers/wpforms_process_complete/
- *
- * @param array  $fields    Sanitized entry field values/properties.
- * @param array  $entry     Original $_POST global.
- * @param array  $form_data Form data and settings.
- * @param int    $entry_id  Entry ID. Will return 0 if entry storage is disabled or using WPForms Lite.
- */
- 
- function efw_wpf_update_user_email_consent( $fields, $entry, $form_data, $entry_id ) { 
-    $entry = wpforms()->entry->get( $entry_id );
-    $entry_fields = json_decode( $entry->fields, true );
-    $consent = ( 1 == $entry_fields[20][ 'value_raw' ] ?: 0 );
-    update_field('email_consent', $consent , 'user_' . get_current_user_id() );
-}
-add_action( 'wpforms_process_complete_75305', 'efw_wpf_update_user_email_consent', 10, 4 );
-
-
 /**
  * Run shortcodes in WPForms' confirmation messages. Required for the user photo form.
  *
