@@ -110,6 +110,41 @@ function efw_get_current_user_claimed_alum_permalink() {
 add_action( 'wpforms_process_complete_75669', 'efw_wpf_on_user_photo_save', 10, 4 );
 
 /**
+ * efw_wpf_after_profile_edit
+ * 
+ * Wrapper function for handling user submitted details.
+ *
+ * @link  https://wpforms.com/developers/wpforms_process_complete/
+ *
+ * @param array  $fields    Sanitized entry field values/properties.
+ * @param array  $entry     Original $_POST global.
+ * @param array  $form_data Form data and settings.
+ * @param int    $entry_id  Entry ID. Will return 0 if entry storage is disabled or using WPForms Lite.
+ */
+
+function efw_wpf_after_profile_edit( $fields, $entry, $form_data, $entry_id ) {
+    efw_purge_alum_page_cache();
+}
+add_action( 'wpforms_process_complete_75305', 'efw_wpf_after_profile_edit', 10, 4 );
+
+/**
+ * efw_purge_alum_page_cache
+ * 
+ * Forces a cache purge for the current user's associated alumnus page. 
+ * 
+ * @link https://docs.wp-rocket.me/article/93-rocketcleanpost
+ *
+ * @return void
+ */
+
+ function efw_purge_alum_page_cache() {
+    $alum_id = efw_get_current_user_claimed_alum_id();
+    if ( function_exists('rocket_clean_post') ) {
+        rocket_clean_post( $alum_id );
+    }
+}
+
+/**
  * Run shortcodes in WPForms' confirmation messages. Required for the user photo form.
  *
  * @link   https://wpforms.com/developers/how-to-display-shortcodes-inside-the-confirmation-message/
