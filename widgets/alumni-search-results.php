@@ -52,6 +52,19 @@ protected function register_controls() {
     );
 
     $this->add_control(
+        'user_override',
+        [
+            'type' => \Elementor\Controls_Manager::SELECT,
+            'label' => esc_html__( 'Claiming User Names', 'efw-alumni' ),
+            'options' => [
+                'yes' => esc_html__( 'Override', 'efw-alumni' ),
+                'no' => esc_html__( 'Ignore', 'efw-alumni' ),
+            ],
+            'default' => 'no',
+        ]
+    );
+
+    $this->add_control(
         'school-community',
         [
             'type' => \Elementor\Controls_Manager::TEXT,
@@ -175,6 +188,7 @@ protected function render() {
     $sorted_list = $_SESSION['_sorted_list'];
 
     $settings = $this->get_settings_for_display();
+    $user_override = ( 'yes' == $this->get_settings( 'user_override' ) ? 1 : 0 );
 
     $this->add_render_attribute(
         'wrapper',
@@ -199,7 +213,7 @@ protected function render() {
         foreach ( $sorted_list as $alum ) {
             $grad_class = wp_get_post_terms($alum->ID,'al-class');
             $class_attr = implode(' ' , get_post_class( '', $alum->ID ));
-            $name = efw_get_alumnus_name( $alum->ID , 'full_current' , 0 , $settings['show-rip']);
+            $name = efw_get_alumnus_name( $alum->ID , 'full_current' , 0 , $settings['show-rip'] , $user_override );
             $this->add_render_attribute(
                 'alumnus',
                 [
