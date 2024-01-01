@@ -27,8 +27,6 @@ function efw_prepare_search_results( $hits ) {
           $class_id = wp_get_post_terms($hit->ID,'al-class')[0]->term_id;
           $class_year = (get_field('year' , 'al-class_' . $class_id) ?: 9999 );
           $sorting_string = $class_year . ' ' . $hit->post_title;
-          do_action( 'qm/debug', $sorting_string ); //RBF
-
           $sorted_list[$sorting_string] = $hit; // Not really sorted yet
         }
         ksort($sorted_list); // Now the list should be sorted
@@ -89,8 +87,6 @@ function efw_redirect_single_result() {
 
 // Comment this to deactivate the redirect:
 // add_action('template_redirect', 'efw_redirect_single_result');
-
-
 
 
 /**
