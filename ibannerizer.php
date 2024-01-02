@@ -15,7 +15,10 @@
 define( 'EFW__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once( EFW__PLUGIN_DIR . 'dynamic-tags/register-dynamic-tags.php' );
+
 require_once( EFW__PLUGIN_DIR . 'widgets/register-widgets.php' );
+
+require_once( EFW__PLUGIN_DIR . 'queries/alumni-class-list.php' );
 
 require_once( EFW__PLUGIN_DIR . 'func/alumni-name-formatting.php' );
 require_once( EFW__PLUGIN_DIR . 'func/alumni-claiming-user.php' );
