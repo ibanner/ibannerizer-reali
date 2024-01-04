@@ -72,3 +72,19 @@ function efw_add_taxonomy_class( $classes ){
 }
 
 add_filter( 'body_class', 'efw_add_taxonomy_class' );
+
+
+/**
+ * efw_order_alumni_by_name
+ *
+ * @param mixed $query Main WP Query
+ * 
+ * @return void
+ */
+function efw_order_alumni_by_name( $query ) { 
+    if ( $query->is_tax('al-class') && $query->is_main_query() ) { 
+      $query->set( 'orderby', 'title' ); 
+      $query->set( 'order', 'ASC' ); 
+    } 
+ }
+ add_action( 'pre_get_posts', 'efw_order_alumni_by_name' );
