@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Reali Alumni Website\n"
-"POT-Creation-Date: 2023-12-10 17:23+0200\n"
-"PO-Revision-Date: 2023-12-12 16:15+0200\n"
+"POT-Creation-Date: 2024-01-04 13:14+0200\n"
+"PO-Revision-Date: 2024-01-04 13:16+0200\n"
 "Last-Translator: Itay Banner <itay@ibanner.co.il>\n"
 "Language-Team: Effective Web\n"
 "Language: he_IL\n"
@@ -61,11 +61,12 @@ msgid "Open"
 msgstr "פתיחה"
 
 #: dynamic-tags/alumni-claiming-user-dynamic-tag.php:39
-#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:101
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:104
 msgid "Claiming User Data"
 msgstr "נתוני בוגר.ת משויך.ת"
 
 #: dynamic-tags/alumni-claiming-user-dynamic-tag.php:84
+#: shortcodes/custom-login-form.php:18
 msgid "Email"
 msgstr "דוא\"ל"
 
@@ -74,42 +75,54 @@ msgid "Claimed Alumnus ID"
 msgstr "מזהה בוגר.ת משויך.ת"
 
 #: dynamic-tags/alumni-claiming-user-dynamic-tag.php:86
+msgid "Claimed Alumnus URL"
+msgstr "כתובת עמוד בוגר.ת משויך.ת"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:87
 msgid "Claimed Alumnus Name"
 msgstr "שם בוגר.ת משויך.ת"
 
-#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:87
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:88
 msgid "Email Consent"
 msgstr "הסכמה לדיוור"
 
-#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:88
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:89
+msgid "Has Shared Data"
+msgstr "שיתף/ה מידע"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:90
+msgid "Current Photo ID"
+msgstr "מזהה תמונה עדכנית"
+
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:91
 msgid "Phone Number"
 msgstr "מספר טלפון"
 
-#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:89
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:92
 msgid "User Bio"
 msgstr "ביוגרפיה של המשתמש"
 
-#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:90
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:93
 msgid "Website URL"
 msgstr "קישור לאתר"
 
-#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:91
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:94
 msgid "Facebook URL"
 msgstr "קישור פייסבוק"
 
-#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:92
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:95
 msgid "Twitter URL"
 msgstr "קישור טוויטר"
 
-#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:93
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:96
 msgid "LinkedIn URL"
 msgstr "קישור לינקדאין"
 
-#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:94
+#: dynamic-tags/alumni-claiming-user-dynamic-tag.php:97
 msgid "Instagram URL"
 msgstr "קישור אינסטגרם"
 
-#: dynamic-tags/alumni-claiming-user-photo-dynamic-tag.php:29
+#: dynamic-tags/alumni-claiming-user-photo-dynamic-tag.php:34
 msgid "Claiming User Photo"
 msgstr "תמונת בוגר.ת משויך.ת"
 
@@ -144,9 +157,24 @@ msgid "Don't include"
 msgstr "לא לכלול"
 
 #: dynamic-tags/alumni-name-formats-dynamic-tag.php:115
-#: func/alumni-name-formatting.php:48
+#: func/alumni-name-formatting.php:67
 msgid "RIP"
 msgstr "ז\"ל"
+
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:128
+#: widgets/alumni-search-results.php:58
+msgid "Claiming User Names"
+msgstr "שמות בוגר.ת משויך.ת"
+
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:130
+#: widgets/alumni-search-results.php:60
+msgid "Override"
+msgstr "לתעדף"
+
+#: dynamic-tags/alumni-name-formats-dynamic-tag.php:131
+#: widgets/alumni-search-results.php:61
+msgid "Ignore"
+msgstr "להתעלם"
 
 #: dynamic-tags/efw-loginout-url-dynamic-tag.php:14
 msgid "Log-in/Log-out URL"
@@ -168,40 +196,62 @@ msgstr "דף נוכחי"
 msgid "EFW Utility Tags"
 msgstr "תגיות EFW"
 
-#: modules/alumni-search.php:110
+#: func/alumni-data.php:25
+msgctxt "Feminine"
+msgid "Israel Prize Laureate"
+msgstr "כלת פרס ישראל"
+
+#: func/alumni-data.php:28
+msgctxt "Masculine"
+msgid "Israel Prize Laureate"
+msgstr "חתן פרס ישראל"
+
+#: func/alumni-data.php:31
+msgctxt "Gender Neutral"
+msgid "Israel Prize Laureate"
+msgstr "פרס ישראל"
+
+#: modules/alumni-search.php:105
 msgid "Did you mean:"
 msgstr "ייתכן שהתכוונת ל:"
 
-#: shortcodes/alumni-shortcode.php:32
+#: shortcodes/alumni-shortcode.php:36
 msgid "Alumnus not found"
 msgstr "בוגר.ת לא נמצא.ה"
 
-#: shortcodes/alumni-shortcode.php:169
+#. TRANSLATORS: e.g. "Israel Prize Laureate for Literature in 2023"
+#: shortcodes/alumni-shortcode.php:133
+#, php-format
+msgctxt "Israel Prize"
+msgid "%1$s for %2$s in %3$d"
+msgstr "%1$s ב%2$s לשנת %3$d"
+
+#: shortcodes/alumni-shortcode.php:144
 msgctxt "Masculine"
 msgid "Graduated in"
 msgstr "בוגר"
 
-#: shortcodes/alumni-shortcode.php:172
+#: shortcodes/alumni-shortcode.php:147
 msgctxt "Feminine"
 msgid "Graduated in"
 msgstr "בוגרת"
 
-#: shortcodes/alumni-shortcode.php:175
+#: shortcodes/alumni-shortcode.php:150
 msgctxt "Gender Neutral"
 msgid "Graduated in"
 msgstr "בוגר.ת"
 
-#: shortcodes/alumni-shortcode.php:180
+#: shortcodes/alumni-shortcode.php:155
 msgctxt "Masculine"
 msgid "Studied with"
 msgstr "למד עם"
 
-#: shortcodes/alumni-shortcode.php:183
+#: shortcodes/alumni-shortcode.php:158
 msgctxt "Feminine"
 msgid "Studied with"
 msgstr "למדה עם"
 
-#: shortcodes/alumni-shortcode.php:186
+#: shortcodes/alumni-shortcode.php:161
 msgctxt "Gender Neutral"
 msgid "Studied with"
 msgstr "למד.ה עם"
@@ -226,45 +276,45 @@ msgstr "להציג"
 msgid "Hide"
 msgstr "להסתיר"
 
-#: widgets/alumni-search-results.php:58
+#: widgets/alumni-search-results.php:71
 msgid "Non students title"
 msgstr "כותרת ללא תלמידים"
 
-#: widgets/alumni-search-results.php:59 widgets/alumni-search-results.php:60
+#: widgets/alumni-search-results.php:72 widgets/alumni-search-results.php:73
 msgid "School Community"
 msgstr "קהילת בית הספר"
 
-#: widgets/alumni-search-results.php:68
+#: widgets/alumni-search-results.php:81
 msgid "\"No Results\" text"
 msgstr "כיתוב כשאין תוצאות"
 
-#: widgets/alumni-search-results.php:69 widgets/alumni-search-results.php:70
+#: widgets/alumni-search-results.php:82 widgets/alumni-search-results.php:83
 msgid "No people found with that name."
 msgstr "לא נמצאו בוגרים.ות בשם זה."
 
-#: widgets/alumni-search-results.php:79
+#: widgets/alumni-search-results.php:92
 msgid "Class Titles"
 msgstr "כותרת מחזור"
 
-#: widgets/alumni-search-results.php:88 widgets/alumni-search-results.php:119
-#: widgets/alumni-search-results.php:150
+#: widgets/alumni-search-results.php:101 widgets/alumni-search-results.php:132
+#: widgets/alumni-search-results.php:163
 msgid "Typography"
 msgstr "טיפוגרפיה"
 
-#: widgets/alumni-search-results.php:96 widgets/alumni-search-results.php:127
-#: widgets/alumni-search-results.php:158
+#: widgets/alumni-search-results.php:109 widgets/alumni-search-results.php:140
+#: widgets/alumni-search-results.php:171
 msgid "Color"
 msgstr "צבע"
 
-#: widgets/alumni-search-results.php:110
+#: widgets/alumni-search-results.php:123
 msgid "Alumni Names"
 msgstr "שמות בוגרים.ות"
 
-#: widgets/alumni-search-results.php:141
+#: widgets/alumni-search-results.php:154
 msgid "RIP Suffix"
 msgstr "סיומת ז\"ל"
 
-#: widgets/alumni-search-results.php:213
+#: widgets/alumni-search-results.php:227
 msgid "Class of"
 msgstr "מחזור"
 

@@ -113,37 +113,26 @@ function efw_shortcode_alumni( $atts ) {
 			break;
 			
 		case "isr_prize_pre":
-			switch ( get_field( 'gender' , $aid ) ) {
-				case 'female':
-					$output = "כלת פרס ישראל";
-					break;
-				case 'male':
-					$output = "חתן פרס ישראל";
-					break;
-				default:
-					$output = "פרס ישראל";
-			}
+			$prize = efw_get_alumnus_israel_prize( $aid );
+			$output .= ($prize['pre'] ?: '');
 			break;
 			
-		case "isr_prize_info":
-			$output = get_field( "israel_prize_field" , $aid ) . ', '  . get_field( "israel_prize_year" , $aid );
-			if ( get_field( "more_info" , $aid )) {
-				$output .= " - <a href='" . get_field( "more_info" , $aid ) . "'>נימוקי ועדת הפרס</a>";
+		case "isr_prize":
+			wp_enqueue_script('reali-js');
+			$prize = efw_get_alumnus_israel_prize( $aid );
+			if (!empty($prize)) {
+				$output .= '<b>' . $prize['field'] . '</b> (' . $prize['year'] . ' - <span class="he-year">' . $prize['hebrew-year'] . '</span>)';
 			}
 			break;
 			
 		case "isr_prize_full":
-			switch ( get_field( "gender" , $aid )) {
-				case 'female':
-					$output = "כלת פרס ישראל ל";
-					break;
-				case 'male':
-					$output = "חתן פרס ישראל ל";
-					break;
-				default:
-					$output = "פרס ישראל ל";
+			wp_enqueue_script('reali-js');
+			$prize = efw_get_alumnus_israel_prize( $aid );
+			if (!empty($prize)) {
+				// TRANSLATORS: e.g. "Israel Prize Laureate for Literature in 2023"
+				$format = esc_html_x( '%1$s for %2$s in %3$d' , 'Israel Prize', 'efw-alumni' );
+				$output .= '<b>' . sprintf($format, $prize['pre'], $prize['field'], $prize['year'] ) . '</b> (<span class="he-year">' . $prize['hebrew-year'] . '</span>)';
 			}
-			$output .= get_field( "israel_prize_field" , $aid ) . ' לשנת '  . get_field( "israel_prize_year" , $aid );
 			break;
 			
 		case "class_label":
