@@ -88,12 +88,6 @@ function efw_shortcode_alumni( $atts ) {
 
 		case "full_name":
 			$output = efw_get_alumnus_name( get_the_ID() , 'full_current' , 1 , 1 );
-			// $output = get_field( 'f_name_heb' , $aid ) . ' ';
-			// $output .= ( get_field( 'current_f_name' , $aid ) ?  '(' . get_field( 'current_f_name' , $aid ) . ') ' : '');
-			// $output .= get_field( 'l_name_heb' , $aid ) . ' ';
-			// $output .= ( get_field('current_l_name' , $aid ) ?  '(' . get_field( 'current_l_name' , $aid ) . ') ' : '');
-			// $output .= ( get_field( 'nickname' , $aid ) ?  '<span class="nickname">(' . get_field( 'nickname' , $aid ) . ')</span>' : '');
-			// $output .= ( 1 == get_field( 'is_fallen' , $aid ) ?  ' <span class="rip">ז"ל</span>' : ''); RBF
     		break;
 		
         case 'is_panmaz':
@@ -152,18 +146,6 @@ function efw_shortcode_alumni( $atts ) {
 			$output .= get_field( "israel_prize_field" , $aid ) . ' לשנת '  . get_field( "israel_prize_year" , $aid );
 			break;
 			
-		case "teacher_label":
-			// $output = "שימש";
-			// switch ( get_field( "gender" , $aid )) {
-			// 	case 'female':
-			// 		$output .= "ה";
-			// 		break;
-			// 	default:
-			// 		$output .= ".ה";
-			// }
-			// $output .= " מורה בבית הספר הריאלי"; RBF
-    		break;
-		
 		case "class_label":
 			$is_grad = has_term( 'graduates', 'group' , $aid );
 			$gender = get_field( "gender" , $aid );

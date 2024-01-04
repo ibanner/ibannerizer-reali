@@ -241,10 +241,6 @@ protected function render() {
                 $i++;
             }
         }
-                
-        ?>
-        <pre><?php //print_r($sorted_list); //RBF ?></pre>
-        <?php
     }
 }
 
