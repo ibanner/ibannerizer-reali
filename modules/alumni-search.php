@@ -16,8 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function efw_prepare_search_results( $hits ) {
   
-    static $nested_list = array();
-    $classes_present = array();
     $sorted_list = array();
 
     if ( ! empty( $hits ) ) {
@@ -25,12 +23,13 @@ function efw_prepare_search_results( $hits ) {
         foreach ( $hits[0] as $hit ) {
           $class_id = wp_get_post_terms($hit->ID,'al-class')[0]->term_id;
           $class_year = (get_field('year' , 'al-class_' . $class_id) ?: 9999 );
-          $sorting_string = $class_year . ' ' . $hit->post_title;
+          $sorting_string = $class_year . ' ' . $hit->post_title . ' ' . $hit->ID;
           $sorted_list[$sorting_string] = $hit; // Not really sorted yet
         }
         ksort($sorted_list); // Now the list should be sorted
         $hits[0] = $sorted_list;
     }
+
     $_SESSION['_sorted_list'] = $sorted_list;
     return $hits;
 }

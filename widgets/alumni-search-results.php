@@ -184,9 +184,7 @@ protected function render() {
 
     global $post;
     
-    $results = $_SESSION['_nested_list'];
     $sorted_list = $_SESSION['_sorted_list'];
-
     $settings = $this->get_settings_for_display();
     $user_override = ( 'yes' == $this->get_settings( 'user_override' ) ? 1 : 0 );
 
