@@ -23,7 +23,7 @@ public function get_custom_help_url() {
 }
 
 public function get_categories() {
-    return 'efw-widgets';
+    return [ 'efw-widgets' ];
 }
 
 public function get_keywords() {
