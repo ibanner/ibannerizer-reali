@@ -222,7 +222,8 @@ protected function render() {
 
             ?>
             <?php if ( (isset($prev) && $grad_class != $prev ) || !isset($prev) ) { 
-                $class_title = ( $grad_class ? esc_html__( 'Class of', 'efw-alumni' ) . ' ' . $grad_class[0]->name : $class_title = $settings['school-community'] );
+                $grad_years = get_field("year", "al-class_" . $grad_class[0]->term_id) . " - " . get_field( "hebrew_year" , "al-class_" . $grad_class[0]->term_id);
+                $class_title = ( $grad_class ? esc_html__( 'Class of', 'efw-alumni' ) . ' ' . $grad_class[0]->name  . ' (' . $grad_years  . ')' : $class_title = $settings['school-community'] );
                 echo ( 1 != $count? '</ul>' : '' );
                 ?>
                 <h2><?php echo $class_title; ?></h2>
