@@ -88,3 +88,28 @@ function efw_order_alumni_by_name( $query ) {
     } 
  }
  add_action( 'pre_get_posts', 'efw_order_alumni_by_name' );
+
+
+/**
+ * efw_custom_page_title
+ *
+ * @param mixed $title
+ * 
+ * @return string the altered page title
+ */
+function efw_custom_page_title( $title ) {
+
+    // set sure alumni page titles to the full current name
+    if ( is_singular('alumnus') ) {
+
+        $has_class = get_the_terms( get_the_ID() , 'al-class');
+        $class = '';
+        if ( $has_class ) {
+            $class_object = $has_class[0];
+            $class = ' - מחזור ' . $class_object->name;
+        }
+        $title = efw_get_alumnus_name( get_the_ID() , 'full_current' , 1 , 1 , 1 ) . $class . ' | ' . get_bloginfo( 'name' );
+    }
+    return strip_tags($title);
+}
+add_filter( 'pre_get_document_title', 'efw_custom_page_title' );
