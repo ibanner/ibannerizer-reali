@@ -21,6 +21,7 @@ require_once( EFW__PLUGIN_DIR . 'widgets/register-widgets.php' );
 require_once( EFW__PLUGIN_DIR . 'func/alumni-name-formatting.php' );
 require_once( EFW__PLUGIN_DIR . 'func/alumni-data.php' );
 require_once( EFW__PLUGIN_DIR . 'func/alumni-claiming-user.php' );
+require_once( EFW__PLUGIN_DIR . 'func/class-data.php' );
 
 require_once( EFW__PLUGIN_DIR . 'modules/custom-login.php' );
 require_once( EFW__PLUGIN_DIR . 'modules/ga.php' );
@@ -36,6 +37,7 @@ require_once( EFW__PLUGIN_DIR . 'post-types/award.php' );
 
 require_once( EFW__PLUGIN_DIR . 'shortcodes/alumni-shortcode.php' );
 require_once( EFW__PLUGIN_DIR . 'shortcodes/custom-login-form.php' );
+require_once( EFW__PLUGIN_DIR . 'shortcodes/class-list.php' );
 
 require_once( EFW__PLUGIN_DIR . 'admin/alumni-admin-columns.php' );
 
@@ -186,3 +188,30 @@ function efw_remove_admin_bar_for_non_admins() {
 }
 
 add_action('after_setup_theme', 'efw_remove_admin_bar_for_non_admins');
+
+
+/**
+ * efw_maybe_create_classes_table
+ * 
+ * Initial setup of the custom DB table for stroing alumni classes data.
+ *
+ * @return void
+ */
+function efw_maybe_create_classes_table() {
+  require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+  global $wpdb;
+  $table_name = $wpdb->prefix . 'efw_classes';
+	
+	$charset_collate = $wpdb->get_charset_collate();
+
+	$sql = "CREATE TABLE $table_name (
+		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		class_id mediumint(9) NOT NULL,
+		class_name varchar(9) NOT NULL,
+		alumni longtext,
+		PRIMARY KEY  (id)
+	) $charset_collate;";
+
+  maybe_create_table( $table_name , $sql );
+}
+add_action( 'plugins_loaded', 'efw_maybe_create_classes_table' );
