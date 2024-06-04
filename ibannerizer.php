@@ -1,203 +1,149 @@
 <?php
 /**
- * Plugin Name:     IBannerizer - Reali Alumni
+ * Plugin Name:     EFW Utility Plugin - Reali Alumni
  * Plugin URI:      https://effective-web.co.il
  * Description:     Utility plugin for Hebrew Reali School alumni website
  * Author:          Itay Banner
  * Author URI:      https://effective-web.co.il
- * Text Domain:     ibannerizer
+ * Text Domain:     efw-alumni
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         0.1.1
  *
- * @package         Ibannerizer
+ * @package         efw-alumni
  */
 
-define( 'IBANNERIZER__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'EFW__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-require_once( IBANNERIZER__PLUGIN_DIR . 'custom_login.php' );
-require_once( IBANNERIZER__PLUGIN_DIR . 'modules/ga.php' );
+require_once( EFW__PLUGIN_DIR . 'dynamic-tags/register-dynamic-tags.php' );
 
-require_once( IBANNERIZER__PLUGIN_DIR . 'taxonomies/al-class.php' );
-require_once( IBANNERIZER__PLUGIN_DIR . 'taxonomies/honors.php' );
-require_once( IBANNERIZER__PLUGIN_DIR . 'taxonomies/group.php' );
+require_once( EFW__PLUGIN_DIR . 'widgets/register-widgets.php' );
 
-require_once( IBANNERIZER__PLUGIN_DIR . 'post-types/alumnus.php' );
-require_once( IBANNERIZER__PLUGIN_DIR . 'post-types/award.php' );
+require_once( EFW__PLUGIN_DIR . 'func/alumni-name-formatting.php' );
+require_once( EFW__PLUGIN_DIR . 'func/alumni-data.php' );
+require_once( EFW__PLUGIN_DIR . 'func/alumni-claiming-user.php' );
+require_once( EFW__PLUGIN_DIR . 'func/class-data.php' );
 
-add_filter('acf/settings/save_json', 'ibn_json_save_point');
- 
-function ibn_json_save_point( $path ) {
-    
-    // update path
-    $path = IBANNERIZER__PLUGIN_DIR . '/acf-json';
-        
-    // return
-    return $path;
-    
+require_once( EFW__PLUGIN_DIR . 'modules/custom-login.php' );
+require_once( EFW__PLUGIN_DIR . 'modules/ga.php' );
+
+
+
+require_once( EFW__PLUGIN_DIR . 'taxonomies/al-class.php' );
+require_once( EFW__PLUGIN_DIR . 'taxonomies/honors.php' );
+require_once( EFW__PLUGIN_DIR . 'taxonomies/group.php' );
+
+require_once( EFW__PLUGIN_DIR . 'post-types/alumnus.php' );
+require_once( EFW__PLUGIN_DIR . 'post-types/award.php' );
+
+require_once( EFW__PLUGIN_DIR . 'shortcodes/alumni-shortcode.php' );
+require_once( EFW__PLUGIN_DIR . 'shortcodes/custom-login-form.php' );
+require_once( EFW__PLUGIN_DIR . 'shortcodes/class-list.php' );
+
+require_once( EFW__PLUGIN_DIR . 'admin/alumni-admin-columns.php' );
+
+
+/**
+ * Plugin related files
+ */
+
+function efw_load_plugin_related_files() {
+  if (is_plugin_active('relevanssi-premium/relevanssi.php')) {
+    require_once( EFW__PLUGIN_DIR . 'modules/alumni-search.php' );
+  }
 }
+add_action( 'init', 'efw_load_plugin_related_files' );
+
+
+
+/**
+ * Language files
+ */
+
+function efw_load_textdomain() {
+  load_plugin_textdomain( 'efw-alumni', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
+add_action( 'plugins_loaded', 'efw_load_textdomain' );
+ 
+
+
+/**
+ * Register scripts and styles
+ */
 
 function reali_register_scripts() {
-	wp_register_script(
-      'gematriya',
-      plugin_dir_url( __FILE__ ) . "/lib/gematriya.js",
-      ['jquery'],
-      '2.0.0',
-      true
-    );
-	
-	wp_register_script(
-      'reali-js',
-      plugin_dir_url( __FILE__ ) . "/js/script.js",
-      ['jquery', 'gematriya'],
-      '1.0.0',
-      true
-    );
-	
-//     wp_enqueue_script(
-//         'he-code',
-//         'https://unpkg.com/he-date@1.2.2/HeDate.js'
-//     );
+wp_register_script(
+    'gematriya',
+    plugin_dir_url( __FILE__ ) . "/lib/gematriya.js",
+    ['jquery'],
+    '2.0.0',
+    true
+  );
+
+wp_register_script(
+    'reali-js',
+    plugin_dir_url( __FILE__ ) . "/js/script.js",
+    ['jquery', 'gematriya'],
+    '1.0.0',
+    true
+  );
 
 }
 
 add_action('init', 'reali_register_scripts');
 
 
-/**
- * Register Claiming User Current Photo Dynamic Tag.
- *
- * Include dynamic tag file and register tag class.
- *
- * @since 1.0.0
- * @param \Elementor\Core\DynamicTags\Manager $dynamic_tags_manager Elementor dynamic tags manager.
- * @return void
- */
-function register_claiming_user_photo_dynamic_tag( $dynamic_tags_manager ) {
-
-	require_once( IBANNERIZER__PLUGIN_DIR . 'dynamic-tags/alumni-claiming-user-photo-dynamic-tag.php' );
-
-	$dynamic_tags_manager->register( new Elementor_Dynamic_Tag_Claiming_User_Current_Photo() );
-
-}
-
-add_action( 'elementor/dynamic_tags/register', 'register_claiming_user_photo_dynamic_tag' );
-
-
 
 /**
- * Register Claiming User Data Dynamic Tag.
+ * Setup ACF save point
  *
- * Include dynamic tag file and register tag class.
- *
- * @since 1.0.0
- * @param \Elementor\Core\DynamicTags\Manager $dynamic_tags_manager Elementor dynamic tags manager.
- * @return void
- */
-function register_claiming_user_data_dynamic_tag( $dynamic_tags_manager ) {
-
-	require_once( IBANNERIZER__PLUGIN_DIR . 'dynamic-tags/alumni-claiming-user-dynamic-tag.php' );
-
-	$dynamic_tags_manager->register( new Elementor_Dynamic_Tag_Claiming_User_Data() );
-
-}
-
-add_action( 'elementor/dynamic_tags/register', 'register_claiming_user_data_dynamic_tag' );
-
-/**
- * ibn_associate_claiming_user_to_alumnus
- *
- * @param int $alumnus_id
- * @param int $user_id
- * @param string $current_f_name
- * @param string $current_l_name
+ * @param string $path
  * 
- * @return mixed
+ * @return string
  */
-function ibn_associate_claiming_user_to_alumnus ( $alumnus_id , $user_id , $current_f_name , $current_l_name ) {
-  if ( ! $alumnus_id ) {
 
-    return false;
+function ibn_json_save_point( $path ) {
+  $path = EFW__PLUGIN_DIR . '/acf-json';
+  return $path;
+}
 
-  } else {
+add_filter('acf/settings/save_json', 'ibn_json_save_point');
 
-    if( ! has_term( 'claimed', 'group' ) ) {
-      wp_set_post_terms( get_the_ID(), 'claimed' , 'group', true );
-    }
-
-    ibn_set_claiming_user_names( $alumnus_id , $user_id , $current_f_name , $current_l_name );
-
-    return update_field( 'claiming_user' , wp_get_current_user() );
-
+/**
+ * remove_admin_bar for non admins
+ *
+ * @return void
+ */
+function efw_remove_admin_bar_for_non_admins() {
+  if ( ! current_user_can( 'manage_options' ) ) {
+    show_admin_bar(false);
   }
 }
 
+add_action('after_setup_theme', 'efw_remove_admin_bar_for_non_admins');
+
+
 /**
- * ibn_set_claiming_user_names
- *
- * @param int $alumnus_id
- * @param int $user_id
- * @param string $current_f_name
- * @param string $current_l_name
+ * efw_maybe_create_classes_table
  * 
- * @return mixed
+ * Initial setup of the custom DB table for stroing alumni classes data.
+ *
+ * @return void
  */
-function ibn_set_claiming_user_names ( $alumnus_id , $user_id , $current_f_name , $current_l_name ) {
-  
-  if ( ! $alumnus_id || ! $user_id ) {
+function efw_maybe_create_classes_table() {
+  require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+  global $wpdb;
+  $table_name = $wpdb->prefix . 'efw_classes';
+	
+	$charset_collate = $wpdb->get_charset_collate();
 
-    return false;
+	$sql = "CREATE TABLE $table_name (
+		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		class_id mediumint(9) NOT NULL,
+		class_name varchar(9) NOT NULL,
+		alumni longtext,
+		PRIMARY KEY  (id)
+	) $charset_collate;";
 
-  } else {
-
-    $alumnus_f_name = get_field( 'f_name_heb' , $alumnus_id );
-    $alumnus_l_name = get_field( 'l_name_heb' , $alumnus_id );
-
-    $args = array(
-      'ID' => $user_id,
-      'display_name' => $alumnus_f_name . ' ' . $alumnus_l_name,
-      'nickname' => $alumnus_f_name . ' ' . $alumnus_l_name,
-      'alum_id' => $alumnus_id,
-      'about_alumni' => 'FOO',
-      'first_name' => $alumnus_f_name,
-      'last_name' => $alumnus_l_name,
-    );
-
-    if ( $current_f_name ) { $args['first_name'] = $current_f_name; }
-    if ( $current_l_name ) { $args['last_name'] = $current_l_name; }
-
-    return wp_update_user( $args );
-
-  }
-  
+  maybe_create_table( $table_name , $sql );
 }
-
-add_filter( 'relevanssi_hits_filter', 'efw_search_result_test' );
-
-function efw_search_result_test( $hits ) {
-  
-    static $nested_list = array();
-    $classes_present = array();
-    $sorted_list = array();
-
-    if ( ! empty( $hits ) ) {
-      
-        foreach ( $hits[0] as $hit ) {
-          $class = wp_get_post_terms($hit->ID,'al-class')[0];
-          $sorting_string = $class->name . ' ' . $hit->post_title;
-          $classes_present[$class->term_id] = $class->name;
-
-          if ( ! in_array($class, $classes_present) ) {
-            $classes_present[$class->term_id] = $class->name;
-          }
-
-          $nested_list[$class->name][] = $hit->ID;
-
-          $sorted_list[$sorting_string] = $hit; // Not really sorted yet
-        }
-        ksort($nested_list);
-        ksort($sorted_list); // Now the list should be sorted
-        $hits[0] = $sorted_list;
-    }
-    $_SESSION['_nested_list'] = $nested_list;
-    return $hits;
-}
+add_action( 'plugins_loaded', 'efw_maybe_create_classes_table' );

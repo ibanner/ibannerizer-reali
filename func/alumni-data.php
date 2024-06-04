@@ -1,0 +1,115 @@
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+/**
+ * efw_get_alumnus_israel_prize
+ * 
+ * Gather all data regarding the Israel Prize for a recipient alumnus.
+ *
+ * @param int $alum_id
+ * 
+ * @return array { 
+ *     pre: string, // Localized, Gender Appropriate, "Israel Prize Laureate" prefix
+ *     field: string, // The Israel Prize Field
+ *     year: int, // Year of prize (Gregorian)
+ *     hebrew-year: int, // Year of prize (Hebrew - numeric value)
+ *     url: string, // URL to the prize committee announcement if available
+ * }
+ */
+function efw_get_alumnus_israel_prize( int $alum_id ) {
+    switch ( get_field( 'gender' , $alum_id ) ) {
+        case 'female':
+            $pre = esc_html_x( 'Israel Prize Laureate' , 'Feminine' , 'efw-alumni' );
+            break;
+        case 'male':
+            $pre = esc_html_x( 'Israel Prize Laureate' , 'Masculine' , 'efw-alumni' );
+            break;
+        default:
+            $pre = esc_html_x( 'Israel Prize Laureate' , 'Gender Neutral' , 'efw-alumni' );
+    }
+    $year = intval ( get_field('israel_prize_year' , $alum_id ) );
+    $prize = [
+        'pre' => $pre,
+        'field' => get_field("israel_prize_field" , $alum_id ),
+        'year' => $year,
+        'hebrew-year' => $year + 3761 - 5000,
+        'url' => ( esc_url(get_field('more_info' , $alum_id )) ?: '' ),
+    ];
+    return $prize;
+}
+ 
+/**
+ * efw_add_taxonomy_class
+ * 
+ * Filter the Alumni list in al-class 
+ *
+ * @param string $classes
+ * 
+ * @return string Modified class string for Alumni
+ */
+function efw_add_taxonomy_class( $classes ){
+    if( is_singular() ) {
+        global $post;
+		
+		// Add honors terms to body classes
+        $taxonomy_terms = get_the_terms($post->ID, 'honors'); // change to your taxonomy
+        if ( $taxonomy_terms ) {
+            foreach ( $taxonomy_terms as $taxonomy_term ) {
+            $classes[] = 'honors-' . $taxonomy_term->slug;
+            }
+        }
+		
+		// Add "Deceased" to body classes
+		$is_fallen = get_field( 'is_fallen' );
+		if ( 1 == $is_fallen ) {
+            $classes[] = 'deceased';
+        }
+    }
+    return $classes;
+}
+
+add_filter( 'body_class', 'efw_add_taxonomy_class' );
+
+
+/**
+ * efw_order_alumni_by_name
+ *
+ * @param mixed $query Main WP Query
+ * 
+ * @return void
+ */
+function efw_order_alumni_by_name( $query ) { 
+    if ( $query->is_tax('al-class') && $query->is_main_query() ) { 
+      $query->set( 'orderby', 'title' ); 
+      $query->set( 'order', 'ASC' ); 
+    } 
+ }
+ add_action( 'pre_get_posts', 'efw_order_alumni_by_name' );
+
+
+/**
+ * efw_custom_page_title
+ *
+ * @param mixed $title
+ * 
+ * @return string the altered page title
+ */
+function efw_custom_page_title( $title ) {
+
+    // set sure alumni page titles to the full current name
+    if ( is_singular('alumnus') ) {
+
+        $has_class = get_the_terms( get_the_ID() , 'al-class');
+        $class = '';
+        if ( $has_class ) {
+            $class_object = $has_class[0];
+            $class = ' - מחזור ' . $class_object->name;
+        }
+        $title = efw_get_alumnus_name( get_the_ID() , 'full_current' , 1 , 1 , 1 ) . $class . ' | ' . get_bloginfo( 'name' );
+    }
+    return strip_tags($title);
+}
+add_filter( 'pre_get_document_title', 'efw_custom_page_title' );

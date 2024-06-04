@@ -16,17 +16,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 {
     public function get_categories()
     {
-        return [ \Elementor\Modules\DynamicTags\Module::IMAGE_CATEGORY ];
+        return [
+			\Elementor\Modules\DynamicTags\Module::URL_CATEGORY,
+			\Elementor\Modules\DynamicTags\Module::TEXT_CATEGORY,
+			\Elementor\Modules\DynamicTags\Module::IMAGE_CATEGORY,
+			\Elementor\Modules\DynamicTags\Module::POST_META_CATEGORY,
+			 ];
     }
 
     public function get_group()
     {
-        return [ 'post' ];
+        return [ 'efw-utility' ];
     }
 
     public function get_title()
     {
-        return esc_html__( 'Claiming User Photo', 'ibn' );
+        return esc_html__( 'Claiming User Photo', 'efw-alumni' );
     }
 
     public function get_name()
@@ -36,23 +41,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     public function get_value( array $options = array() )
     {
-        $claiming_user = get_field( 'claiming_user' );
+        
+        $claiming_user = ( is_page('update') ? wp_get_current_user() : get_field( 'claiming_user' ) );
 
 		if ( ! $claiming_user || ! isset( $claiming_user ) ) {
 			return;
 		}
 
         if( $claiming_user->has_prop( 'current_photo' ) ){
-
-            $pid = $claiming_user->get( 'current_photo' );
-
-            return [
-                'id' => $pid,
-                'url' => wp_get_attachment_image_src($pid, 'full')[0],
-            ]; 
-			
-		} else {
-			return;
+            $current_photo = [
+                'id' => intval( $claiming_user->get( 'current_photo' ) ),
+                'url' => '',
+            ];
+            if ( 0 != $current_photo['id'] ) {
+                $current_photo['url'] = wp_get_attachment_image_src( $current_photo['id'], 'full')[0];
+            }
+            return $current_photo;
 		}
     }
 }
