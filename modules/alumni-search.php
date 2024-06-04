@@ -109,3 +109,23 @@ add_shortcode( 'rlv_didyoumean', function() {
   }
   return $didyoumean;
 } );
+
+/* Hyphenated Names
+   ----------------
+   This function is triggered when an alumnus post is created or saved. 
+   It looks for names stored in custom fields (should have slugs containing the string `name`). 
+   When a name is found with a hyphen (e.g. "Bar-Lev"), it will index it as "Bar Lev BarLev".
+   
+   IMPORTANT:
+   For best results, the Relevanssi setting for hyphens should be "Remove".
+
+   See under "Punctuation control" in:
+   https://www.relevanssi.com/user-manual/installing-relevanssi-and-adjusting-the-settings/
+  */
+add_filter( 'relevanssi_custom_field_value', function( $value, $key ) {
+  if ( strpos( $key, 'name' ) !== false ) {
+    $pattern = '/(\w+)-(\w+)/u'; // `u` means Unicode. critical for Hebrew.
+    $value = preg_replace( $pattern , '\1\2 \1 \2' , $value );
+  }
+  return $value;
+}, 10, 2 );
