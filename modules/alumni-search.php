@@ -114,7 +114,7 @@ add_shortcode( 'rlv_didyoumean', function() {
    ----------------
    This function is triggered when an alumnus post is created or saved. 
    It looks for names stored in custom fields (should have slugs containing the string `name`). 
-   When a name is found with a hyphen (e.g. "Bar-Lev"), it will indexit as "Bar Lev BarLev".
+   When a name is found with a hyphen (e.g. "Bar-Lev"), it will index it as "Bar Lev BarLev".
    
    IMPORTANT:
    For best results, the Relevanssi setting for hyphens should be "Remove".
