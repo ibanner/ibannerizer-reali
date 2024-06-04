@@ -118,3 +118,20 @@ function efw_get_class_alumnidata( $class_id ) {
     $alumni_raw = $wpdb->get_row( $sql, ARRAY_A );
     return $alumni_raw;
 }
+
+/**
+ * efw_custom_class_page_title
+ *
+ * @param mixed $title
+ * 
+ * @return string the altered class page title
+ */
+function efw_custom_class_page_title( $title ) {
+
+    if ( is_tax('al-class') ) {
+        return single_term_title('מחזור ', false) . ' | ' . get_bloginfo( 'name' );
+    } else {
+        return $title;
+    }
+}
+add_filter( 'pre_get_document_title', 'efw_custom_class_page_title' );
