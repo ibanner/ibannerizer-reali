@@ -195,6 +195,86 @@ function efw_process_wpforms_smarttags( $content, $tag ) {
 }
 add_filter( 'wpforms_smart_tag_process', 'efw_process_wpforms_smarttags', 10, 2 );
 
+/**
+ * ibn_associate_claiming_user_to_alumnus
+ *
+ * @param int $alumnus_id
+ * @param int $user_id
+ * @param string $current_f_name
+ * @param string $current_l_name
+ * 
+ * @return mixed
+ */
+function ibn_associate_claiming_user_to_alumnus ( $alumnus_id , $user_id , $current_f_name , $current_l_name ) {
+    if ( ! $alumnus_id ) {
+  
+      return false;
+  
+    } else {
+  
+      if( ! has_term( 'claimed', 'group' ) ) {
+        wp_set_post_terms( get_the_ID(), 'claimed' , 'group', true );
+      }
+  
+      ibn_set_claiming_user_names( $alumnus_id , $user_id , $current_f_name , $current_l_name );
+
+      $fields_to_update = array (
+        'claiming_user' => wp_get_current_user(),
+        'claiming_user_f_name' => $current_f_name,
+        'claiming_user_l_name' => $current_l_name,
+      );
+
+      foreach ($fields_to_update as $field => $value) {
+        $field_object = get_field_object($field);
+        if ($field_object) {
+            update_field($field, $value);
+        } else {
+            error_log("Field {$field} does not exist for alumnus ID {$aid}.");
+        }
+    }
+        wp_update_post( array( 'ID' => get_the_ID() ) );
+    }
+}
+  
+/**
+ * ibn_set_claiming_user_names
+ *
+ * @param int $alumnus_id
+ * @param int $user_id
+ * @param string $current_f_name
+ * @param string $current_l_name
+ * 
+ * @return mixed
+ */
+function ibn_set_claiming_user_names ( $alumnus_id , $user_id , $current_f_name , $current_l_name ) {
+
+    if ( ! $alumnus_id || ! $user_id ) {
+
+        return false;
+
+    } else {
+
+        $alumnus_f_name = get_field( 'f_name_heb' , $alumnus_id );
+        $alumnus_l_name = get_field( 'l_name_heb' , $alumnus_id );
+
+        $args = array(
+        'ID' => $user_id,
+        'display_name' => $alumnus_f_name . ' ' . $alumnus_l_name,
+        'nickname' => '',
+        'alum_id' => $alumnus_id,
+        'first_name' => $alumnus_f_name,
+        'last_name' => $alumnus_l_name,
+        );
+
+        if ( $current_f_name ) { $args['first_name'] = $current_f_name; }
+        if ( $current_l_name ) { $args['last_name'] = $current_l_name; }
+
+        return wp_update_user( $args );
+
+    }
+
+}
+  
 
 add_action( 'delete_user', 'efw_disconnect_claiming_user' );
 
@@ -210,9 +290,23 @@ function efw_disconnect_claiming_user( $user_id ) {
     if ( TRUE == has_term( 'claimed', 'group' , $aid ) ) {
         wp_remove_object_terms($aid, 'claimed', 'group');
     }
-    update_field('claiming_user', '', $aid );
-}
 
+    $fields_to_clear = array (
+        'claiming_user',
+        'claiming_user_f_name',
+        'claiming_user_l_name',
+      );
+
+      foreach ($fields_to_clear as $field) {
+        $field_object = get_field_object($field, $aid);
+        if ($field_object) {
+            update_field($field, '', $aid);
+        } else {
+            error_log("Field {$field} does not exist for alumnus ID {$aid}.");
+        }
+    }
+    wp_update_post( array( 'ID' => $aid ) );
+}
 
 /**
  * efw_wpf_filter_email_consent_value
