@@ -7,11 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * efw_class_list_shortcode
  * 
- * Generate the required HTML for the class list in a single al-class page
+ * Generate the required HTML for the class list in a single al-class page.
  *
  * @return mixed
  */
-function efw_class_list_shortcode() {
+function efw_class_list_shortcode($atts) {
 
   $class_id = is_tax('al-class') ? get_queried_object_id() : 105 ; // default value for testing
   if (isset( $_GET['class'] )) {
@@ -85,7 +85,13 @@ function efw_class_list_shortcode() {
         font-weight: var( --e-global-typography-text-font-weight );
       }
     </style>
+    <?php 
+    if (isset($atts['title']) && 1 == $atts['title']) {
+    ?>  
     <center><h1>מחזור <?php echo $classdata['class_name'] . ' - ' . count($alumni['data']); ?> בוגרים</h1></center>
+    <?php
+    }
+    ?>
     <div class="alumni-class-list-wrapper">
       <?php
       foreach ( $alumni['data'] as $name => $data ) {
