@@ -83,6 +83,7 @@ function efw_class_list_shortcode($atts) {
         font-family: var( --e-global-typography-text-font-family ), Arial, Sans-serif;
         font-size: var( --e-global-typography-text-font-size );
         font-weight: var( --e-global-typography-text-font-weight );
+        text-align: center;
       }
     </style>
     <?php 
