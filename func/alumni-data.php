@@ -113,3 +113,38 @@ function efw_custom_page_title( $title ) {
     return strip_tags($title);
 }
 add_filter( 'pre_get_document_title', 'efw_custom_page_title' );
+
+function efw_update_fallen_status($post_id) {
+    // Verify this is not an autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Verify the post type is 'alumnus'
+    if ('alumnus' !== get_post_type($post_id)) {
+        return;
+    }
+
+    // Verify the user has permission to edit the post
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // Get the value of the ACF field 'is_fallen'
+    $is_fallen = get_field('is_fallen', $post_id);
+
+    // Check if the term exists
+    $term_exists = term_exists('fallen', 'group');
+
+    // Get the term ID
+    $term_id = is_array($term_exists) ? $term_exists['term_id'] : $term_exists;
+
+    if ($is_fallen) {
+        // If 'is_fallen' is true, attach the term
+        wp_set_object_terms($post_id, (int) $term_id, 'group', true);
+    } else {
+        // If 'is_fallen' is false, remove the term
+        wp_remove_object_terms($post_id, (int) $term_id, 'group');
+    }
+}
+add_action('save_post', 'efw_update_fallen_status');
