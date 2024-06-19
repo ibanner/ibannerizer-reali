@@ -83,6 +83,7 @@ function efw_class_list_shortcode($atts) {
         font-family: var( --e-global-typography-text-font-family ), Arial, Sans-serif;
         font-size: var( --e-global-typography-text-font-size );
         font-weight: var( --e-global-typography-text-font-weight );
+        text-align: center;
       }
     </style>
     <?php 
@@ -104,7 +105,7 @@ function efw_class_list_shortcode($atts) {
         $is_fallen = ( ! empty($data['flags']) && str_contains( $data['flags'] , 'fallen' ) ) ? 1 : 0 ;
         $rip = ( 1 == $is_fallen ) ? ' <span class="rip">' . esc_html__( 'RIP', 'efw-alumni' ) . '</span>' : '';
         $display_name = $name . $rip;
-        $url_base = site_url( '/alumnus/', 'https' );
+        $url_base = site_url( '/alumnus/' );
 
         ?>
         <div class="alumni-single-item">
