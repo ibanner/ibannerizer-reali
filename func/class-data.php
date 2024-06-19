@@ -65,7 +65,7 @@ function efw_update_alumni_classdata( $class_id ) {
     $alumni['ids'] = get_posts( $args );
     $alumni['count'] = sizeof($alumni['ids']);
     foreach ($alumni['ids'] as $aid) {
-        $name = efw_get_alumnus_name( $aid , 'full_current' , 0 , 0 , 0 );
+        $name = efw_get_alumnus_name( $aid , 'full_current' , 0 , 0 , 1 );
         $is_grad = has_term( 'graduates', 'group' , $aid );
         $is_fallen = has_term( 'fallen', 'group' , $aid );
         $flags = '';
