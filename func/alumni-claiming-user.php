@@ -235,6 +235,21 @@ function ibn_associate_claiming_user_to_alumnus ( $alumnus_id , $user_id , $curr
         wp_update_post( array( 'ID' => get_the_ID() ) );
     }
 }
+
+/**
+ * efw_set_alumnus_current_names
+ *
+ * @param int $alumnus_id
+ * @param string $current_f_name
+ * @param string $current_l_name
+ * 
+ * @return int|WP_Error The post ID on success. The value 0 or WP_Error on failure.
+ */
+function efw_set_alumnus_current_names( $alumnus_id, $current_f_name , $current_l_name ) {
+    update_post_meta( $alumnus_id, 'claiming_user_f_name', $current_f_name );
+    update_post_meta( $alumnus_id, 'claiming_user_l_name', $current_l_name );
+    return wp_update_post( array( 'ID' => $alumnus_id ) ); // Required for reindexing the post
+}
   
 /**
  * ibn_set_claiming_user_names
