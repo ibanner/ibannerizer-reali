@@ -114,7 +114,15 @@ function efw_custom_page_title( $title ) {
 }
 add_filter( 'pre_get_document_title', 'efw_custom_page_title' );
 
-function efw_update_fallen_status($post_id) {
+/**
+ * efw_update_fallen_status
+ *
+ * @param int $post_id  The `alumnus` post id that was just saved.
+ * 
+ * @return void
+ */
+
+ function efw_update_fallen_status($post_id) {
     // Verify this is not an autosave
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         return;
