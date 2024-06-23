@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Reali Alumni Website\n"
-"POT-Creation-Date: 2024-01-04 13:14+0200\n"
-"PO-Revision-Date: 2024-01-04 13:16+0200\n"
+"POT-Creation-Date: 2024-06-23 08:30+0300\n"
+"PO-Revision-Date: 2024-06-23 08:33+0300\n"
 "Last-Translator: Itay Banner <itay@ibanner.co.il>\n"
 "Language-Team: Effective Web\n"
 "Language: he_IL\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
 "2 : 3);\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: esc_html__;esc_html_x:1,2c;esc_attr_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -47,7 +47,7 @@ msgstr "מקבל.ת הפרס"
 msgid "Featured Image"
 msgstr "תמונה"
 
-#: admin/alumni-admin-columns.php:56
+#: admin/alumni-admin-columns.php:56 dynamic-tags/award-dynamic-tag.php:88
 msgid "Award Year"
 msgstr "שנה"
 
@@ -157,7 +157,7 @@ msgid "Don't include"
 msgstr "לא לכלול"
 
 #: dynamic-tags/alumni-name-formats-dynamic-tag.php:115
-#: func/alumni-name-formatting.php:67
+#: func/alumni-name-formatting.php:67 shortcodes/class-list.php:106
 msgid "RIP"
 msgstr "ז\"ל"
 
@@ -175,6 +175,38 @@ msgstr "לתעדף"
 #: widgets/alumni-search-results.php:61
 msgid "Ignore"
 msgstr "להתעלם"
+
+#: dynamic-tags/award-dynamic-tag.php:39 dynamic-tags/award-dynamic-tag.php:99
+msgid "Award Data"
+msgstr "נתוני פרס"
+
+#: dynamic-tags/award-dynamic-tag.php:84
+msgid "Award Recipient ID"
+msgstr "ID מקבל.ת הפרס"
+
+#: dynamic-tags/award-dynamic-tag.php:85 dynamic-tags/award-dynamic-tag.php:86
+msgid "Recipient Page URL"
+msgstr "כתובת עמוד המקבל.ת"
+
+#: dynamic-tags/award-dynamic-tag.php:87
+msgid "Name on Awarding"
+msgstr "שם בעת ההענקה"
+
+#: dynamic-tags/award-dynamic-tag.php:89
+msgid "Award Hebrew Year"
+msgstr "שנה עברית"
+
+#: dynamic-tags/award-dynamic-tag.php:90
+msgid "Award Year (EN+HE)"
+msgstr "שנת הענקה (לועזית-עברית)"
+
+#: dynamic-tags/award-dynamic-tag.php:91
+msgid "More Info Link"
+msgstr "קישור מידע נוסף"
+
+#: dynamic-tags/award-dynamic-tag.php:92
+msgid "Laureate Prefix"
+msgstr "קידומת פרס"
 
 #: dynamic-tags/efw-loginout-url-dynamic-tag.php:14
 msgid "Log-in/Log-out URL"
@@ -211,7 +243,22 @@ msgctxt "Gender Neutral"
 msgid "Israel Prize Laureate"
 msgstr "פרס ישראל"
 
-#: modules/alumni-search.php:105
+#: func/award-data.php:34
+msgctxt "Feminine"
+msgid "Laureate"
+msgstr "כלת"
+
+#: func/award-data.php:37
+msgctxt "Masculine"
+msgid "Laureate"
+msgstr "חתן"
+
+#: func/award-data.php:40
+msgctxt "Gender Neutral"
+msgid "Laureate"
+msgstr ""
+
+#: modules/alumni-search.php:104
 msgid "Did you mean:"
 msgstr "ייתכן שהתכוונת ל:"
 
@@ -314,7 +361,7 @@ msgstr "שמות בוגרים.ות"
 msgid "RIP Suffix"
 msgstr "סיומת ז\"ל"
 
-#: widgets/alumni-search-results.php:227
+#: widgets/alumni-search-results.php:226
 msgid "Class of"
 msgstr "מחזור"
 
