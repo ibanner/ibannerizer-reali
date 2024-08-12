@@ -109,6 +109,9 @@ function efw_shortcode_alumni( $atts ) {
                 // string replacement needed for compatability with bogrim-panmaz.co.il links
                 $panmaz_url = 'https://bogrim-panmaz.co.il/class/' . urlencode(str_replace('"', '״', $panmaz)) . '/'; 
                 $output = '<a class="panmaz-link" href="' . esc_url( $panmaz_url ) . '" target="_blank"><strong>' . 'מחזור ' . $panmaz . '</strong></a>';
+				if ( get_field( "panmaz_name" , "al-class_" . $class_id)) {
+                    $output .= ' (פלוגת "' . get_field( 'panmaz_name' , 'al-class_' . $class_id) . '")';
+                }
             }
 			break;
 			

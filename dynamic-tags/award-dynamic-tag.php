@@ -89,6 +89,7 @@ class Elementor_Dynamic_Tag_Award_Data extends Elementor\Core\DynamicTags\Tag {
             'award_heb_year' => esc_html__( 'Award Hebrew Year', 'efw-alumni' ),
             'award_year_string' => esc_html__( 'Award Year (EN+HE)', 'efw-alumni' ),
             'award_link' => esc_html__( 'More Info Link', 'efw-alumni' ),
+            'award_edit_link' => esc_html__( 'Edit Award Link', 'efw-alumni' ),
             'recipient_prefix' => esc_html__( 'Laureate Prefix', 'efw-alumni' ),
 		);
 
@@ -127,6 +128,13 @@ class Elementor_Dynamic_Tag_Award_Data extends Elementor\Core\DynamicTags\Tag {
             
             case 'recipient_alum_url':
                 echo get_permalink( $award['award_recipient'] );
+                break;
+            
+			case 'award_edit_link':
+                $post_id = get_the_ID();
+				if ( $post_id ) {
+					echo get_edit_post_link( $post_id );
+				}
                 break;
                 
             default:

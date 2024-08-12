@@ -51,7 +51,7 @@ add_action( 'manage_al-class_custom_column', 'efw_custom_al_class_columns', 10, 
  function efw_add_award_columns( $columns ) {
 	unset($columns['date']);
 	$columns['menu_order'] = esc_html_x( 'Order' , 'Award Ordering' , 'efw-alumni' );
-	$columns['award-recipient'] = esc_html__( 'Award Recipient' , 'efw-alumni' );
+	$columns['award_recipient'] = esc_html__( 'Award Recipient' , 'efw-alumni' );
 	$columns['thumbnail'] = esc_html__( 'Featured Image' , 'efw-alumni' );
     $columns['award_year'] = esc_html__( 'Award Year' , 'efw-alumni' );
     $columns['link'] = esc_html__( 'Award Link' , 'efw-alumni' );
@@ -74,7 +74,7 @@ function efw_custom_award_column_values( $columns, $post_id ) {
             $output = ( $url ? '<a href="' . esc_html( get_field('award_link', $post_id) )  . '" class="external-link" target="_blank"><span class="dashicons dashicons-admin-links"></span> '  . esc_html_x( 'Open' , 'Award Link' , 'efw-alumni' )  . '</a>' : '');
             echo $output;
 			break;
-		case 'award-recipient' :
+		case 'award_recipient' :
 			$a_id = implode( get_field('award_recipient', $post_id) );
             echo '<a href="' . get_edit_post_link( $a_id )  . '" class="alumnus-link">' . get_the_title( $a_id ) . '</a>';
 			break;
@@ -90,6 +90,7 @@ add_action( 'manage_award_posts_custom_column', 'efw_custom_award_column_values'
 function efw_make_award_columns_sortable($sortable_columns) {
     $sortable_columns['award_year'] = 'award_year';
     $sortable_columns['menu_order'] = 'menu_order';
+    $sortable_columns['award_recipient'] = 'award_recipient';
     return $sortable_columns;
 }
 add_filter('manage_edit-award_sortable_columns', 'efw_make_award_columns_sortable');
