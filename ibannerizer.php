@@ -22,6 +22,7 @@ require_once( EFW__PLUGIN_DIR . 'func/alumni-name-formatting.php' );
 require_once( EFW__PLUGIN_DIR . 'func/alumni-data.php' );
 require_once( EFW__PLUGIN_DIR . 'func/alumni-claiming-user.php' );
 require_once( EFW__PLUGIN_DIR . 'func/class-data.php' );
+require_once( EFW__PLUGIN_DIR . 'func/award-data.php' );
 
 require_once( EFW__PLUGIN_DIR . 'modules/custom-login.php' );
 require_once( EFW__PLUGIN_DIR . 'modules/ga.php' );
